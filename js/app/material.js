@@ -7,7 +7,8 @@ define( ["three", "shader!simple.vert", "shader!simple.frag", "texture"], functi
     grass: new THREE.MeshBasicMaterial( { map: texture.grass } ),
     shader: new THREE.ShaderMaterial( {
       uniforms: {
-        uColor: { type: "c", value: new THREE.Color( "#ff0000" ) }
+        uColor: { type: "c", value: new THREE.Color( "#ff0000" ) },
+        uTexture: { type: "t", value: texture.grass }
       },
       vertexShader: simpleVert.value,
       fragmentShader: simpleFrag.value
