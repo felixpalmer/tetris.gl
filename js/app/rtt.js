@@ -6,13 +6,21 @@ function ( THREE, renderer ) {
     scene: new THREE.Scene(),
     material: null,
     init: function () {
+      console.log( 'Initializing RTT' );
       // Define parameters for render target
       var parameters = {
         format: THREE.RGBAFormat,
+        // If we do not disable the depth buffer get these errors:
+        // [Warning] WebGL: INVALID_FRAMEBUFFER_OPERATION: clear: framebuffer not complete (three.min.js, line 428)
+        // [Warning] WebGL: INVALID_FRAMEBUFFER_OPERATION: drawElements: framebuffer not complete (three.min.js, line 449)
+        depthBuffer: false,
         stencilBuffer: false,
-        type: THREE.UnsignedByteType,
+        type: THREE.FloatType, // Works on desktop, fails on iOS
+        //type: THREE.UnsignedByteType, // works on both
         wrapS: THREE.ClampToEdgeWrapping,
         wrapT: THREE.ClampToEdgeWrapping
+        //magFilter: THREE.NearestFilter // makes no difference
+        //minFilter: THREE.LinearMipMapNearestFilter // makes no difference
       };
       var width = 2048;
 
@@ -33,7 +41,9 @@ function ( THREE, renderer ) {
       rtt.scene.add( plane );
     },
     process: function () {
+      console.log( 'Processing RTT' );
       renderer.render( rtt.scene, rtt.camera, rtt.renderTarget, true );
+      console.log( 'Processed RTT' );
     }
   };
 
