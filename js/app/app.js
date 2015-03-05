@@ -1,5 +1,5 @@
-define( ["three", "camera", "controls", "geometry", "light", "material", "renderer", "scene"],
-function ( THREE, camera, controls, geometry, light, material, renderer, scene ) {
+define( ['three', 'camera', 'controls', 'geometry', 'light', 'material', 'renderer', 'rtt', 'scene'],
+function ( THREE, camera, controls, geometry, light, material, renderer, rtt, scene ) {
   var app = {
     init: function () {
       app.mesh = new THREE.Mesh( geometry.cube, material.shader );

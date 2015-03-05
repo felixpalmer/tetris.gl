@@ -1,5 +1,5 @@
-define( ['three', 'renderer'],
-function ( THREE, renderer ) {
+define( ['three', 'material', 'renderer'],
+function ( THREE, material, renderer ) {
   var rtt = {
     camera: null,
     renderTarget: null,
@@ -37,12 +37,13 @@ function ( THREE, renderer ) {
 
       // Render a green square in the center of the render target
       rtt.renderTarget = new THREE.WebGLRenderTarget( width, width, parameters );
-      var plane = new THREE.Mesh( new THREE.PlaneGeometry( 1, 1 ), new THREE.MeshBasicMaterial( {color: 'green'} ) );
+      var plane = new THREE.Mesh( new THREE.PlaneGeometry( 1, 1 ), material.rtt );
       rtt.scene.add( plane );
     },
     process: function () {
       console.log( 'Processing RTT' );
       renderer.render( rtt.scene, rtt.camera, rtt.renderTarget, true );
+      material.shader.uniforms.uTexture.value = rtt.renderTarget;
       console.log( 'Processed RTT' );
     }
   };
