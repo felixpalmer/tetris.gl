@@ -14,5 +14,5 @@ Running
 
 Just host this directory with a webserver of your choice. You can also use the `webserver.sh` script included (provided you have Python) to set up a simple development server.
 
-Then visit http://localhost:4444 in your browser.
+Then visit http://localhost:4444 in your browser. To view on an iOS device, connect the iOS device to the same network as your computer and then access via the computer's local IP, e.g. 10.0.0.1:4444
 
