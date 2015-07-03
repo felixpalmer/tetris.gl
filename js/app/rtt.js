@@ -1,4 +1,4 @@
-define( ['three', 'material', 'renderer'], function ( THREE, material, renderer ) {
+define( ['three', 'material', 'shader!simple.vert', 'renderer'], function ( THREE, material, simpleVert, renderer ) {
   var RenderToTarget = function () {
     this.camera = null;
     this.renderTarget = null;
@@ -6,7 +6,7 @@ define( ['three', 'material', 'renderer'], function ( THREE, material, renderer 
     this.material = null;
   };
 
-  RenderToTarget.prototype.init = function () {
+  RenderToTarget.prototype.init = function ( shader ) {
     console.log( 'Initializing RTT' );
     // Define parameters for render target
     var parameters = {
@@ -26,32 +26,33 @@ define( ['three', 'material', 'renderer'], function ( THREE, material, renderer 
     var width = 2048;
 
     // Create a camera that will capture a square from -1 to 1
-    rtt.camera = new THREE.OrthographicCamera( -1, 1, 1, -1, 0, 10000 );
-    rtt.scene.add( rtt.camera );
-    rtt.camera.position.z = 1.0;
-    rtt.camera.lookAt( new THREE.Vector3( 0, 0, 0 ) );
-    rtt.camera.left = -1;
-    rtt.camera.right = 1;
-    rtt.camera.top = 1;
-    rtt.camera.bottom = -1;
-    rtt.camera.updateProjectionMatrix();
+    this.camera = new THREE.OrthographicCamera( -1, 1, 1, -1, 0, 10000 );
+    this.scene.add( this.camera );
+    this.camera.position.z = 1.0;
+    this.camera.lookAt( new THREE.Vector3( 0, 0, 0 ) );
+    this.camera.left = -1;
+    this.camera.right = 1;
+    this.camera.top = 1;
+    this.camera.bottom = -1;
+    this.camera.updateProjectionMatrix();
 
     // Render a green square in the center of the render target
-    rtt.renderTarget = new THREE.WebGLRenderTarget( width, width, parameters );
-    var plane = new THREE.Mesh( new THREE.PlaneGeometry( 1, 1 ), material.rtt );
-    rtt.scene.add( plane );
+    this.renderTarget = new THREE.WebGLRenderTarget( width, width, parameters );
+
+    this.material = new THREE.ShaderMaterial( {
+      vertexShader: simpleVert.value,
+      fragmentShader: shader.value
+    });
+    var plane = new THREE.Mesh( new THREE.PlaneGeometry( 1, 1 ), this.material );
+    this.scene.add( plane );
   };
 
   RenderToTarget.prototype.process = function () {
     console.log( 'Processing RTT' );
-    renderer.render( rtt.scene, rtt.camera, rtt.renderTarget, true );
-    material.shader.uniforms.uTexture.value = rtt.renderTarget;
+    renderer.render( this.scene, this.camera, this.renderTarget, true );
+    material.shader.uniforms.uTexture.value = this.renderTarget;
     console.log( 'Processed RTT' );
   };
 
-  var rtt = new RenderToTarget();
-
-  rtt.init();
-  rtt.process();
-  return rtt;
+  return RenderToTarget;
 } );
