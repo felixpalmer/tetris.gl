@@ -2,7 +2,7 @@ define( ['three', 'camera', 'controls', 'geometry', 'light', 'material', 'render
 function ( THREE, camera, controls, geometry, light, material, renderer, RenderToTarget, scene, texture, simpleVert, copyFrag, shiftFrag, spawnFrag ) {
   var app = {
     init: function () {
-      app.mesh = new THREE.Mesh( geometry.cube, material.shader );
+      app.mesh = new THREE.Mesh( geometry.plane, material.shader );
       scene.add( app.mesh );
 
       // Spawn pass (create new stuff)
@@ -53,14 +53,17 @@ function ( THREE, camera, controls, geometry, light, material, renderer, RenderT
     animate: function () {
       app.frame++;
       window.requestAnimationFrame( app.animate );
-      controls.update();
-
-      app.mesh.rotation.x += 0.005;
-      app.mesh.rotation.y += 0.01;
+      //controls.update();
 
       // Pipeline
-      if ( app.frame % 2 === 0 ) {
+      if ( app.frame % 10 === 0 ) {
         app.spawnPass.process();
+
+        // When we spawn, want to have shift read from spawn...
+        app.shiftPass.material.uniforms.uTexture.value = app.spawnPass.renderTarget;
+      } else {
+        // ...otherwise, just use the copy buffer
+        app.shiftPass.material.uniforms.uTexture.value = app.copyPass.renderTarget;
       }
       app.shiftPass.process();
       app.copyPass.process();

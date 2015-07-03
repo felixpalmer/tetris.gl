@@ -7,8 +7,12 @@ void main() {
   vec4 color = texture2D( uTexture, vUv );
 
   // Create new pixels on left
-  if ( vUv.x < 0.01 ) {
+  if ( vUv.y > 0.81 ) {
     color.r = 1.0;
+  }
+
+  if ( 0.01 < vUv.y && vUv.y < 0.02 ) {
+    color.b = 1.0;
   }
 
   gl_FragColor = color;
