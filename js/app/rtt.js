@@ -1,4 +1,4 @@
-define( ['three', 'material', 'shader!simple.vert', 'renderer'], function ( THREE, material, simpleVert, renderer ) {
+define( ['three', 'renderer'], function ( THREE, renderer ) {
   var RenderToTarget = function () {
     this.camera = null;
     this.renderTarget = null;
@@ -6,22 +6,16 @@ define( ['three', 'material', 'shader!simple.vert', 'renderer'], function ( THRE
     this.material = null;
   };
 
-  RenderToTarget.prototype.init = function ( shader ) {
+  RenderToTarget.prototype.init = function ( material ) {
     console.log( 'Initializing RTT' );
     // Define parameters for render target
     var parameters = {
       format: THREE.RGBAFormat,
-      // If we do not disable the depth buffer get these errors:
-      // [Warning] WebGL: INVALID_FRAMEBUFFER_OPERATION: clear: framebuffer not complete (three.min.js, line 428)
-      // [Warning] WebGL: INVALID_FRAMEBUFFER_OPERATION: drawElements: framebuffer not complete (three.min.js, line 449)
       depthBuffer: false,
       stencilBuffer: false,
-      type: THREE.FloatType, // Works on desktop, fails on iOS
-      //type: THREE.UnsignedByteType, // works on both
+      type: THREE.UnsignedByteType, // works on both
       wrapS: THREE.ClampToEdgeWrapping,
       wrapT: THREE.ClampToEdgeWrapping
-      //magFilter: THREE.NearestFilter // makes no difference
-      //minFilter: THREE.LinearMipMapNearestFilter // makes no difference
     };
     var width = 2048;
 
@@ -36,13 +30,9 @@ define( ['three', 'material', 'shader!simple.vert', 'renderer'], function ( THRE
     this.camera.bottom = -1;
     this.camera.updateProjectionMatrix();
 
-    // Render a green square in the center of the render target
+    // Render onto quad
     this.renderTarget = new THREE.WebGLRenderTarget( width, width, parameters );
-
-    this.material = new THREE.ShaderMaterial( {
-      vertexShader: simpleVert.value,
-      fragmentShader: shader.value
-    });
+    this.material = material;
     var plane = new THREE.Mesh( new THREE.PlaneGeometry( 1, 1 ), this.material );
     this.scene.add( plane );
   };
@@ -50,7 +40,6 @@ define( ['three', 'material', 'shader!simple.vert', 'renderer'], function ( THRE
   RenderToTarget.prototype.process = function () {
     console.log( 'Processing RTT' );
     renderer.render( this.scene, this.camera, this.renderTarget, true );
-    material.shader.uniforms.uTexture.value = this.renderTarget;
     console.log( 'Processed RTT' );
   };
 

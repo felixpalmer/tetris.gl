@@ -1,11 +1,16 @@
-define( ['three', 'camera', 'controls', 'geometry', 'light', 'material', 'renderer', 'rtt', 'scene', 'shader!rtt.frag'],
-function ( THREE, camera, controls, geometry, light, material, renderer, RenderToTarget, scene, rttFrag ) {
+define( ['three', 'camera', 'controls', 'geometry', 'light', 'material', 'renderer', 'rtt', 'scene', 'shader!simple.vert', 'shader!rtt.frag'],
+function ( THREE, camera, controls, geometry, light, material, renderer, RenderToTarget, scene, simpleVert, rttFrag ) {
   var app = {
     init: function () {
       app.mesh = new THREE.Mesh( geometry.cube, material.shader );
 
+      var m =  new THREE.ShaderMaterial( {
+        vertexShader: simpleVert.value,
+        fragmentShader: rttFrag.value
+      });
       var rtt = new RenderToTarget();
-      rtt.init( rttFrag );
+      rtt.init( m );
+      material.shader.uniforms.uTexture.value = rtt.renderTarget;
       rtt.process();
       scene.add( app.mesh );
     },
