@@ -38,9 +38,7 @@ define( ['three', 'renderer'], function ( THREE, renderer ) {
   };
 
   RenderToTarget.prototype.process = function () {
-    console.log( 'Processing RTT' );
     renderer.render( this.scene, this.camera, this.renderTarget, true );
-    console.log( 'Processed RTT' );
   };
 
   return RenderToTarget;
