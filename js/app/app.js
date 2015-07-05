@@ -8,7 +8,8 @@ function ( THREE, camera, controls, geometry, light, material, renderer, RenderT
       // Spawn pass (create new stuff)
       var mat = new THREE.ShaderMaterial( {
         uniforms: {
-          uTexture: { type: 't', value: texture.grass }
+          uTexture: { type: 't', value: texture.grass },
+          uTime: { type: 'f', value: 0 }
         },
         vertexShader: simpleVert.value,
         fragmentShader: spawnFrag.value
@@ -57,6 +58,9 @@ function ( THREE, camera, controls, geometry, light, material, renderer, RenderT
 
       // Pipeline
       if ( app.frame % 10 === 0 ) {
+        var t = Date.now() / 1000.0 % 1000;
+        t *= 53.481274928371;
+        app.spawnPass.material.uniforms.uTime.value = t;
         app.spawnPass.process();
 
         // When we spawn, want to have shift read from spawn...
