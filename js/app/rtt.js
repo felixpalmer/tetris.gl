@@ -13,11 +13,13 @@ define( ['three', 'renderer'], function ( THREE, renderer ) {
       format: THREE.RGBAFormat,
       depthBuffer: false,
       stencilBuffer: false,
-      type: THREE.UnsignedByteType, // works on both
+      type: THREE.UnsignedByteType,
       wrapS: THREE.ClampToEdgeWrapping,
-      wrapT: THREE.ClampToEdgeWrapping
+      wrapT: THREE.ClampToEdgeWrapping,
+      minFilter: THREE.NearestFilter,
+      magFilter: THREE.NearestFilter
     };
-    var width = 2048;
+    var width = 64;
 
     // Create a camera that will capture a square from -1 to 1
     this.camera = new THREE.OrthographicCamera( -1, 1, 1, -1, 0, 10000 );
