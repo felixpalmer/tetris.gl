@@ -2,8 +2,8 @@ define( ['three', 'camera', 'controls', 'geometry', 'light', 'material', 'render
 function ( THREE, camera, controls, geometry, light, material, renderer, RenderToTarget, scene, texture, simpleVert, copyFrag, shiftFrag, spawnFrag, tetrisFrag ) {
   var app = {
     addPass: function ( fragmentShader, input ) {
-      var size = 128.0;
-      fragmentShader.define( 'STEP', 1 / size );
+      var size = 16.0;
+      fragmentShader.define( 'STEP', 0.2499 / size );
       var mat = new THREE.ShaderMaterial( {
         uniforms: {
           uTexture: { type: 't', value: input },
@@ -40,8 +40,11 @@ function ( THREE, camera, controls, geometry, light, material, renderer, RenderT
     },
     frame: 0,
     simulate: function () {
+      //if ( app.frame % 11 !== 0 ) { // Spawn rate
+      //  return;
+      //}
       // Pipeline
-      if ( app.frame % 1 === 0 ) {
+      if ( app.frame % 1 === 0 ) { // Spawn rate
         var t = Date.now() / 1000.0 % 1000;
         t *= 53.481274928371;
         t = Math.random();
@@ -62,7 +65,7 @@ function ( THREE, camera, controls, geometry, light, material, renderer, RenderT
       window.requestAnimationFrame( app.animate );
       //controls.update();
 
-      for ( var i = 0; i < 10; i++ ) {
+      for ( var i = 0; i < 6; i++ ) {
         app.simulate();
       }
       renderer.render( scene, camera );

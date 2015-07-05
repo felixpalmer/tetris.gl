@@ -20,5 +20,9 @@ void main() {
     here.rg = here.gr;
   }
 
+  if ( here.g > 0.0 ) {
+    here.b += 0.01;
+  }
+
   gl_FragColor = here;
 }
