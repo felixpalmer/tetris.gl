@@ -1,13 +1,10 @@
 define( ['three', 'renderer'], function ( THREE, renderer ) {
-  var RenderToTarget = function () {
+  var RenderToTarget = function ( material, width ) {
     this.camera = null;
     this.renderTarget = null;
     this.scene = new THREE.Scene();
     this.material = null;
-  };
 
-  RenderToTarget.prototype.init = function ( material ) {
-    console.log( 'Initializing RTT' );
     // Define parameters for render target
     var parameters = {
       format: THREE.RGBAFormat,
@@ -19,7 +16,7 @@ define( ['three', 'renderer'], function ( THREE, renderer ) {
       minFilter: THREE.NearestFilter,
       magFilter: THREE.NearestFilter
     };
-    var width = 64;
+    width = width | 64;
 
     // Create a camera that will capture a square from -1 to 1
     this.camera = new THREE.OrthographicCamera( -1, 1, 1, -1, 0, 10000 );

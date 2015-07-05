@@ -1,43 +1,31 @@
-define( ['three', 'camera', 'controls', 'geometry', 'light', 'material', 'renderer', 'rtt', 'scene', 'texture', 'shader!simple.vert', 'shader!copy.frag', 'shader!shift.frag', 'shader!spawn.frag'],
-function ( THREE, camera, controls, geometry, light, material, renderer, RenderToTarget, scene, texture, simpleVert, copyFrag, shiftFrag, spawnFrag ) {
+define( ['three', 'camera', 'controls', 'geometry', 'light', 'material', 'renderer', 'rtt', 'scene', 'texture', 'shader!simple.vert', 'shader!copy.frag', 'shader!shift.frag', 'shader!spawn.frag', 'shader!tetris.frag'],
+function ( THREE, camera, controls, geometry, light, material, renderer, RenderToTarget, scene, texture, simpleVert, copyFrag, shiftFrag, spawnFrag, tetrisFrag ) {
   var app = {
+    addPass: function ( fragmentShader, input ) {
+      var size = 128.0;
+      fragmentShader.define( 'STEP', 1 / size );
+      var mat = new THREE.ShaderMaterial( {
+        uniforms: {
+          uTexture: { type: 't', value: input },
+          uTime: { type: 'f', value: 0 }
+        },
+        vertexShader: simpleVert.value,
+        fragmentShader: fragmentShader.value
+      });
+      return new RenderToTarget( mat, size );
+    },
     init: function () {
       app.mesh = new THREE.Mesh( geometry.plane, material.shader );
       scene.add( app.mesh );
 
       // Spawn pass (create new stuff)
-      var mat = new THREE.ShaderMaterial( {
-        uniforms: {
-          uTexture: { type: 't', value: texture.grass },
-          uTime: { type: 'f', value: 0 }
-        },
-        vertexShader: simpleVert.value,
-        fragmentShader: spawnFrag.value
-      });
-      app.spawnPass = new RenderToTarget();
-      app.spawnPass.init( mat );
+      app.spawnPass = app.addPass( spawnFrag, texture.grass );
 
       // Shift pass (move it along)
-      mat = new THREE.ShaderMaterial( {
-        uniforms: {
-          uTexture: { type: 't', value: app.spawnPass.renderTarget }
-        },
-        vertexShader: simpleVert.value,
-        fragmentShader: shiftFrag.value
-      });
-      app.shiftPass = new RenderToTarget();
-      app.shiftPass.init( mat );
+      app.shiftPass = app.addPass( tetrisFrag, app.spawnPass.renderTarget  );
 
       // Copy pass (copy from shift, so shift can read)
-      mat = new THREE.ShaderMaterial( {
-        uniforms: {
-          uTexture: { type: 't', value: app.shiftPass.renderTarget }
-        },
-        vertexShader: simpleVert.value,
-        fragmentShader: copyFrag.value
-      });
-      app.copyPass = new RenderToTarget();
-      app.copyPass.init( mat );
+      app.copyPass = app.addPass( copyFrag, app.shiftPass.renderTarget  );
 
       // Initial render
       app.spawnPass.process();
@@ -51,15 +39,12 @@ function ( THREE, camera, controls, geometry, light, material, renderer, RenderT
       material.shader.uniforms.uTexture.value = app.copyPass.renderTarget;
     },
     frame: 0,
-    animate: function () {
-      app.frame++;
-      window.requestAnimationFrame( app.animate );
-      //controls.update();
-
+    simulate: function () {
       // Pipeline
-      if ( app.frame % 10 === 0 ) {
+      if ( app.frame % 1 === 0 ) {
         var t = Date.now() / 1000.0 % 1000;
         t *= 53.481274928371;
+        t = Math.random();
         app.spawnPass.material.uniforms.uTime.value = t;
         app.spawnPass.process();
 
@@ -71,7 +56,15 @@ function ( THREE, camera, controls, geometry, light, material, renderer, RenderT
       }
       app.shiftPass.process();
       app.copyPass.process();
+    },
+    animate: function () {
+      app.frame++;
+      window.requestAnimationFrame( app.animate );
+      //controls.update();
 
+      for ( var i = 0; i < 10; i++ ) {
+        app.simulate();
+      }
       renderer.render( scene, camera );
     }
   };
