@@ -10,7 +10,7 @@ void main() {
   // Create new pixels on top
   float x = 0.99 * fract( uTime );
   if ( x < vUv.x && vUv.x < x + 0.01 &&
-       0.05 < vUv.y && vUv.y < 0.1 ) {
+       0.9 < vUv.y && vUv.y < 0.95 ) { // Spawn near top, with gap
     color.y = 1.0;
   }
 
