@@ -40,9 +40,10 @@ function ( THREE, camera, controls, geometry, light, material, renderer, RenderT
     },
     frame: 0,
     simulate: function () {
-      //if ( app.frame % 11 !== 0 ) { // Spawn rate
-      //  return;
-      //}
+      if ( app.frame % 11 !== 0 ) { // Spawn rate
+        return;
+      }
+
       // Pipeline
       if ( app.frame % 1 === 0 ) { // Spawn rate
         var t = Date.now() / 1000.0 % 1000;
@@ -65,7 +66,7 @@ function ( THREE, camera, controls, geometry, light, material, renderer, RenderT
       window.requestAnimationFrame( app.animate );
       //controls.update();
 
-      for ( var i = 0; i < 6; i++ ) {
+      for ( var i = 0; i < 1; i++ ) {
         app.simulate();
       }
       renderer.render( scene, camera );

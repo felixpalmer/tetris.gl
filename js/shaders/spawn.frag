@@ -3,7 +3,13 @@ uniform float uTime;
 
 varying vec2 vUv;
 
+//#define STEP 0.03125
 #define STEP 0.03125
+
+bool shouldSpawn( vec2 p ) {
+  return ( p.x < vUv.x && vUv.x < p.x + STEP && // One step range in x-direction
+           p.y < vUv.y && vUv.y < p.y + STEP ); // One step range in y-direction
+}
 
 void main() {
   // Copy in current value
@@ -11,9 +17,13 @@ void main() {
 
   // Create new pixels on top
   float x = ( 1.0 - STEP ) * fract( uTime );
-  if ( x < vUv.x && vUv.x < x + STEP &&
-       1.0 - ( 2.0 * STEP ) < vUv.y && vUv.y < 1.0 - STEP ) { // Spawn near top, with gap
-    color.x = 1.0;
+  if ( shouldSpawn( vec2( x, 1.0 - 2.0 * STEP ) ) ) {
+    color.r = 1.0;
+  }
+
+  //// Spawn "pairs"
+  if ( shouldSpawn( vec2( x, 1.0 - 3.0 * STEP ) ) ) {
+    color.r = 1.0;
   }
 
   gl_FragColor = color;
