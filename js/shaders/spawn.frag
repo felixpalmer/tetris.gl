@@ -21,8 +21,13 @@ void main() {
   }
 
   //// Spawn "pairs"
-  if ( shouldSpawn( vec2( x, 1.0 - 3.0 * STEP ) ) ) {
-    color.r = 1.0;
+  //if ( shouldSpawn( vec2( x, 1.0 - 3.0 * STEP ) ) ) {
+  //  color.r = 1.0;
+  //}
+
+  // Ground
+  if ( vUv.y < STEP ) {
+    color.gb = vec2( 1.0 );
   }
 
   gl_FragColor = color;

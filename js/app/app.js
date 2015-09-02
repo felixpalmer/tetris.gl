@@ -22,14 +22,18 @@ function ( THREE, camera, controls, geometry, light, material, renderer, RenderT
       app.spawnPass = app.addPass( spawnFrag, texture.grass );
 
       // Shift pass (move it along)
-      app.shiftPass = app.addPass( tetrisFrag, app.spawnPass.renderTarget  );
+      app.shiftPass = app.addPass( shiftFrag, app.spawnPass.renderTarget  );
+
+      // Solidify pass (detect we've hit something)
+      app.solidifyPass = app.addPass( tetrisFrag, app.shiftPass.renderTarget  );
 
       // Copy pass (copy from shift, so shift can read)
-      app.copyPass = app.addPass( copyFrag, app.shiftPass.renderTarget  );
+      app.copyPass = app.addPass( copyFrag, app.solidifyPass.renderTarget  );
 
       // Initial render
       app.spawnPass.process();
       app.shiftPass.process();
+      app.solidifyPass.process();
       app.copyPass.process();
 
       // Bootstrapped, now point spawn at copy to complete loop
@@ -40,9 +44,9 @@ function ( THREE, camera, controls, geometry, light, material, renderer, RenderT
     },
     frame: 0,
     simulate: function () {
-      if ( app.frame % 11 !== 0 ) { // Spawn rate
-        return;
-      }
+      //if ( app.frame % 11 !== 0 ) { // Spawn rate
+      //  return;
+      //}
 
       // Pipeline
       if ( app.frame % 1 === 0 ) { // Spawn rate
@@ -59,6 +63,7 @@ function ( THREE, camera, controls, geometry, light, material, renderer, RenderT
         app.shiftPass.material.uniforms.uTexture.value = app.copyPass.renderTarget;
       }
       app.shiftPass.process();
+      app.solidifyPass.process();
       app.copyPass.process();
     },
     animate: function () {
@@ -66,7 +71,7 @@ function ( THREE, camera, controls, geometry, light, material, renderer, RenderT
       window.requestAnimationFrame( app.animate );
       //controls.update();
 
-      for ( var i = 0; i < 1; i++ ) {
+      for ( var i = 0; i < 10; i++ ) {
         app.simulate();
       }
       renderer.render( scene, camera );
