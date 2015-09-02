@@ -3,7 +3,6 @@ uniform float uTime;
 
 varying vec2 vUv;
 
-//#define STEP 0.03125
 #define STEP 0.03125
 
 bool shouldSpawn( vec2 p ) {
