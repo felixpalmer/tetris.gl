@@ -2,12 +2,12 @@ define( ['three', 'camera', 'controls', 'geometry', 'light', 'material', 'render
 function ( THREE, camera, controls, geometry, light, material, renderer, RenderToTarget, scene, texture, simpleVert, copyFrag, shiftFrag, spawnFrag, tetrisFrag ) {
   var app = {
     addPass: function ( fragmentShader, input ) {
-      var size = 16.0;
-      fragmentShader.define( 'STEP', 0.2499 / size );
+      var size = 32.0;
+      fragmentShader.define( 'STEP', 1 / size );
       var mat = new THREE.ShaderMaterial( {
         uniforms: {
           uTexture: { type: 't', value: input },
-          uTime: { type: 'f', value: 0 }
+          uRandom: { type: 'f', value: 0 }
         },
         vertexShader: simpleVert.value,
         fragmentShader: fragmentShader.value
@@ -19,7 +19,7 @@ function ( THREE, camera, controls, geometry, light, material, renderer, RenderT
       scene.add( app.mesh );
 
       // Spawn pass (create new stuff)
-      app.spawnPass = app.addPass( spawnFrag, texture.grass );
+      app.spawnPass = app.addPass( spawnFrag, null ); // Will add target later
 
       // Shift pass (move it along)
       app.shiftPass = app.addPass( shiftFrag, app.spawnPass.renderTarget  );
@@ -30,30 +30,21 @@ function ( THREE, camera, controls, geometry, light, material, renderer, RenderT
       // Copy pass (copy from shift, so shift can read)
       app.copyPass = app.addPass( copyFrag, app.solidifyPass.renderTarget  );
 
-      // Initial render
-      app.spawnPass.process();
-      app.shiftPass.process();
-      app.solidifyPass.process();
-      app.copyPass.process();
-
       // Bootstrapped, now point spawn at copy to complete loop
       app.spawnPass.material.uniforms.uTexture.value = app.copyPass.renderTarget;
 
-      // Copy to graphical layer
+      // Copy to display layer
       material.shader.uniforms.uTexture.value = app.copyPass.renderTarget;
     },
     frame: 0,
     simulate: function () {
-      //if ( app.frame % 11 !== 0 ) { // Spawn rate
+      //if ( app.frame % 11 !== 0 ) { // Throttle rate
       //  return;
       //}
 
       // Pipeline
-      if ( app.frame % 1 === 0 ) { // Spawn rate
-        var t = Date.now() / 1000.0 % 1000;
-        t *= 53.481274928371;
-        t = Math.random();
-        app.spawnPass.material.uniforms.uTime.value = t;
+      if ( app.frame % 100 === 0 ) { // Spawn rate
+        app.spawnPass.material.uniforms.uRandom.value = Math.random();
         app.spawnPass.process();
 
         // When we spawn, want to have shift read from spawn...
@@ -65,13 +56,13 @@ function ( THREE, camera, controls, geometry, light, material, renderer, RenderT
       app.shiftPass.process();
       app.solidifyPass.process();
       app.copyPass.process();
+      app.frame++;
     },
     animate: function () {
-      app.frame++;
       window.requestAnimationFrame( app.animate );
       //controls.update();
 
-      for ( var i = 0; i < 10; i++ ) {
+      for ( var i = 0; i < 1; i++ ) {
         app.simulate();
       }
       renderer.render( scene, camera );

@@ -1,5 +1,5 @@
 uniform sampler2D uTexture;
-uniform float uTime;
+uniform float uRandom;
 
 varying vec2 vUv;
 
@@ -15,7 +15,7 @@ void main() {
   vec4 color = texture2D( uTexture, vUv );
 
   // Create new pixels on top
-  float x = ( 1.0 - STEP ) * fract( uTime );
+  float x = ( 1.0 - STEP ) * fract( uRandom );
   if ( shouldSpawn( vec2( x, 1.0 - 2.0 * STEP ) ) ) {
     color.r = 1.0;
   }

@@ -16,7 +16,7 @@ define( ['three', 'renderer'], function ( THREE, renderer ) {
       minFilter: THREE.NearestFilter,
       magFilter: THREE.NearestFilter
     };
-    width = width | 64;
+    width = width ? width : 64;
 
     // Create a camera that will capture a square from -1 to 1
     this.camera = new THREE.OrthographicCamera( -1, 1, 1, -1, 0, 10000 );
