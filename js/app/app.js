@@ -1,9 +1,8 @@
-define( ['three', 'camera', 'controls', 'geometry', 'light', 'material', 'renderer', 'rtt', 'scene', 'texture', 'shader!simple.vert', 'shader!copy.frag', 'shader!shift.frag', 'shader!spawn.frag', 'shader!tetris.frag'],
-function ( THREE, camera, controls, geometry, light, material, renderer, RenderToTarget, scene, texture, simpleVert, copyFrag, shiftFrag, spawnFrag, tetrisFrag ) {
+define( ['three', 'boardSize', 'camera', 'controls', 'geometry', 'light', 'material', 'renderer', 'rtt', 'scene', 'texture', 'shader!simple.vert', 'shader!copy.frag', 'shader!shift.frag', 'shader!spawn.frag', 'shader!tetris.frag'],
+function ( THREE, boardSize, camera, controls, geometry, light, material, renderer, RenderToTarget, scene, texture, simpleVert, copyFrag, shiftFrag, spawnFrag, tetrisFrag ) {
   var app = {
     addPass: function ( fragmentShader, input ) {
-      var size = 16.0;
-      fragmentShader.define( 'STEP', 1 / size );
+      fragmentShader.define( 'STEP', 1 / boardSize );
       var mat = new THREE.ShaderMaterial( {
         uniforms: {
           uTexture: { type: 't', value: input },
@@ -12,7 +11,7 @@ function ( THREE, camera, controls, geometry, light, material, renderer, RenderT
         vertexShader: simpleVert.value,
         fragmentShader: fragmentShader.value
       });
-      return new RenderToTarget( mat, size );
+      return new RenderToTarget( mat, boardSize );
     },
     init: function () {
       app.mesh = new THREE.Mesh( geometry.plane, material.shader );
@@ -63,7 +62,7 @@ function ( THREE, camera, controls, geometry, light, material, renderer, RenderT
     },
     animate: function () {
       window.requestAnimationFrame( app.animate );
-      controls.update();
+      //controls.update();
 
       if ( app.frame % app.renderThrottle === 0 ) {
         for ( var i = 0; i < app.simulationRate; i++ ) { app.simulate(); }
