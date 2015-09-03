@@ -83,9 +83,14 @@ function ( THREE, boardSize, camera, container, controls, geometry, light, mater
         for ( var i = 0; i < app.simulationRate; i++ ) { app.simulate(); }
       }
       app.frame++;
-
+      
+      // Move camera towards target location
+      if ( app.cameraTarget ) {
+        camera.position.lerp( app.cameraTarget, 0.1 );
+      }
       renderer.render( scene, camera );
     },
+    cameraTarget: new THREE.Vector3( 0, 0, 400 ),
     raycast: function ( e ) {
       // Reliably get mouse position across browsers
       var target = e.target || e.srcElement,
@@ -106,12 +111,10 @@ function ( THREE, boardSize, camera, container, controls, geometry, light, mater
       var intersects = raycaster.intersectObjects( scene.children, true );
       if ( intersects.length > 0 ) {
         var object = intersects[0].object;
-        camera.position.copy( object.position );
-        camera.position.z = 400;
-        camera.lookAt( object.position );
+        app.cameraTarget = object.position.clone();
+        app.cameraTarget.z = 400;
       } else {
-        camera.position.set( 0, 300, 1200 );
-        camera.lookAt( new THREE.Vector3( 0, 300, 0 ) );
+        app.cameraTarget.set( 0, 300, 1200 );
       }
     }
   };

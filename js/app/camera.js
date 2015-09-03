@@ -1,6 +1,6 @@
 define( ["three", "container"], function ( THREE, container ) {
   var camera = new THREE.PerspectiveCamera( 70, 1, 1, 5000 );
-  camera.position.z = 800;
+  camera.position.z = 2000;
 
   var updateSize = function () {
     camera.aspect = container.offsetWidth / container.offsetHeight;
