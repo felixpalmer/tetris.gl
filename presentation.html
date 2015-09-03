@@ -46,18 +46,11 @@
 	</div></section>
 	<section class="slide"><div>
 		<h2>Getting a WebGL context</h2>
-        <code>var canvas = document.createElement( 'canvas' );</code></br>
-        <code>canvas.width = container.offsetWidth;</code></br>
-        <code>canvas.height = container.offsetHeight;</code></br>
-        <code>container.appendChild( canvas );</code></br>
-        <code>var gl = canvas.getContext( 'webgl' );</code></br>
+        <iframe class="snippet" src="snippets/getContext.html"></iframe>
 	</div></section>
 	<section class="slide"><div>
 		<h2>Define a quad</h2>
-        <code>quad.vertices = new Float32Array( [</code></br>
-        <code>&nbsp;&nbsp;-1.0, -1.0, 1.0, -1.0, -1.0, 1.0, // 1st triangle</code></br>
-        <code>&nbsp;&nbsp;-1.0, 1.0, 1.0, -1.0, 1.0, 1.0 // 2nd triangle</code></br>
-        <code>] );</code></br>
+        <iframe class="snippet" src="snippets/defineQuad.html"></iframe>
         <img class="small" src="pictures/vertex.svg">
 	</div></section>
 	<section class="slide shout"><div>
@@ -65,20 +58,12 @@
 	</div></section>
 	<section class="slide"><div>
 		<h2>Vertex shader</h2>
-        <code>attribute vec2 aCoordinate;</code></br>
-        <code>varying vec2 vCoordinate;</code></br>
-        <code>void main() {</code></br>
-        <code>&nbsp;&nbsp;vCoordinate = aCoordinate;</code></br>
-        <code>&nbsp;&nbsp;gl_Position = vec4( aCoordinate, 0, 1 );</code></br>
-        <code>}</code></br>
+        <iframe class="snippet" src="snippets/basicVert.html"></iframe>
         <img class="tiny" src="pictures/vertex.svg">
 	</div></section>
 	<section class="slide"><div>
 		<h2>Fragment shader</h2>
-        <code>varying vec2 vCoordinate;</code></br>
-        <code>void main() {</code></br>
-        <code>&nbsp;&nbsp;gl_FragColor = vec4( vCoordinate, 0.0, 1.0 );</code></br>
-        <code>}</code></br>
+        <iframe class="snippet" src="snippets/basicFrag.html"></iframe>
         <img class="small" src="pictures/fragment.svg">
 	</div></section>
 	<section class="slide"><div>
