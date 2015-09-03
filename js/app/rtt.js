@@ -32,7 +32,7 @@ define( ['three', 'renderer'], function ( THREE, renderer ) {
     // Render onto quad
     this.renderTarget = new THREE.WebGLRenderTarget( width, width, parameters );
     this.material = material;
-    var plane = new THREE.Mesh( new THREE.PlaneGeometry( 2, 2 ), this.material );
+    var plane = new THREE.Mesh( new THREE.PlaneBufferGeometry( 2, 2 ), this.material );
     this.scene.add( plane );
   };
 
