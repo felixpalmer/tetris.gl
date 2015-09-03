@@ -1,5 +1,5 @@
-define( ['three', 'boardSize', 'camera', 'controls', 'geometry', 'light', 'material', 'renderer', 'rtt', 'scene', 'texture', 'shader!simple.vert', 'shader!copy.frag', 'shader!shift.frag', 'shader!spawn.frag', 'shader!tetris.frag'],
-function ( THREE, boardSize, camera, controls, geometry, light, material, renderer, RenderToTarget, scene, texture, simpleVert, copyFrag, shiftFrag, spawnFrag, tetrisFrag ) {
+define( ['three', 'boardSize', 'camera', 'controls', 'geometry', 'light', 'material', 'renderer', 'rtt', 'scene', 'texture', 'shader!simple.vert', 'shader!copy.frag', 'shader!shift.frag', 'shader!solidify.frag', 'shader!spawn.frag'],
+function ( THREE, boardSize, camera, controls, geometry, light, material, renderer, RenderToTarget, scene, texture, simpleVert, copyFrag, shiftFrag, solidifyFrag, spawnFrag ) {
   var app = {
     addPass: function ( fragmentShader, input ) {
       fragmentShader.define( 'STEP', 1 / boardSize );
@@ -14,9 +14,6 @@ function ( THREE, boardSize, camera, controls, geometry, light, material, render
       return new RenderToTarget( mat, boardSize );
     },
     init: function () {
-      app.mesh = new THREE.Mesh( geometry.plane, material.shader );
-      scene.add( app.mesh );
-
       // Spawn pass (create new stuff)
       app.spawnPass = app.addPass( spawnFrag, null ); // Will add target later
 
@@ -24,7 +21,7 @@ function ( THREE, boardSize, camera, controls, geometry, light, material, render
       app.shiftPass = app.addPass( shiftFrag, null ); // Will add target later
 
       // Solidify pass (detect we've hit something)
-      app.solidifyPass = app.addPass( tetrisFrag, app.shiftPass.renderTarget  );
+      app.solidifyPass = app.addPass( solidifyFrag, app.shiftPass.renderTarget  );
 
       // Copy pass (copy from shift, so shift can read)
       app.copyPass = app.addPass( copyFrag, app.solidifyPass.renderTarget  );
@@ -34,7 +31,15 @@ function ( THREE, boardSize, camera, controls, geometry, light, material, render
       app.shiftPass.material.uniforms.uTexture.value = app.copyPass.renderTarget;
 
       // Copy to display layer
-      material.shader.uniforms.uTexture.value = app.copyPass.renderTarget;
+      material.display.uniforms.uTexture.value = app.copyPass.renderTarget;
+
+      var mesh = new THREE.Mesh( geometry.plane, material.display );
+      scene.add( mesh );
+
+      //mesh = new THREE.Mesh( geometry.plane, app.spawnPass.material );
+      mesh = new THREE.Mesh( geometry.plane, material.createDebugShader( app.spawnPass.renderTarget ) );
+      mesh.position.x += 600;
+      scene.add( mesh );
     },
     frame: 0,
     simulationFrame: 0,
@@ -62,7 +67,7 @@ function ( THREE, boardSize, camera, controls, geometry, light, material, render
     },
     animate: function () {
       window.requestAnimationFrame( app.animate );
-      //controls.update();
+      controls.update();
 
       if ( app.frame % app.renderThrottle === 0 ) {
         for ( var i = 0; i < app.simulationRate; i++ ) { app.simulate(); }
