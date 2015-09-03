@@ -7,7 +7,7 @@
   position: absolute;
 }
 .threejs-container {
-  color: grey;
+  color: gray;
   font-size: 10pt;
   position: absolute;
   right: 0;
@@ -102,11 +102,9 @@
   height:100%;
 }
 
-/* Code */
-.slide pre {
-  font: 0.9333em/1.5em Consolas,'Lucida Console','DejaVu Sans Mono',Monaco,'Courier New',monospace;
-  font-size: medium;
-  white-space: pre;
-  margin: 0;
-  padding: 4px;
+/* Code snippets */
+.snippet {
+  width: 80%;
+  height: 60%;
 }
+

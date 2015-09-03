@@ -33,29 +33,82 @@
         <p>Slides: <a href="http://felixpalmer.github.io/tetris.gl/presentation.html">felixpalmer.github.io/tetris.gl/presentation.html</a></p>
         <div class="threejs-container small-top">Loading...</div>
 	</div></section>
+    <section class="slide"><div>
+		<h2>WebGL basics</h2>
+		<ul>
+            <li>Ask <code>canvas</code> for a WebGL context</li>
+            <li>Build <code>quad</code> to render</li>
+            <li>Write shaders: <code>vertex</code> &amp; <code>fragment</code></li>
+			<li>Compile into program (in browser)</li>
+            <li>Pass data into program using <code>uniforms</code> and <code>attributes</code></li>
+            <li>Output is rendered into <code>canvas</code> element</li>
+		</ul>
+	</div></section>
+	<section class="slide"><div>
+		<h2>Getting a WebGL context</h2>
+        <code>var canvas = document.createElement( 'canvas' );</code></br>
+        <code>canvas.width = container.offsetWidth;</code></br>
+        <code>canvas.height = container.offsetHeight;</code></br>
+        <code>container.appendChild( canvas );</code></br>
+        <code>var gl = canvas.getContext( 'webgl' );</code></br>
+	</div></section>
+	<section class="slide"><div>
+		<h2>Define a quad</h2>
+        <code>quad.vertices = new Float32Array( [</code></br>
+        <code>&nbsp;&nbsp;-1.0, -1.0, 1.0, -1.0, -1.0, 1.0, // 1st triangle</code></br>
+        <code>&nbsp;&nbsp;-1.0, 1.0, 1.0, -1.0, 1.0, 1.0 // 2nd triangle</code></br>
+        <code>] );</code></br>
+        <img class="small" src="pictures/vertex.svg">
+	</div></section>
+	<section class="slide shout"><div>
+		<h2>Shaders</h2>
+	</div></section>
+	<section class="slide"><div>
+		<h2>Vertex shader</h2>
+        <code>attribute vec2 aCoordinate;</code></br>
+        <code>varying vec2 vCoordinate;</code></br>
+        <code>void main() {</code></br>
+        <code>&nbsp;&nbsp;vCoordinate = aCoordinate;</code></br>
+        <code>&nbsp;&nbsp;gl_Position = vec4( aCoordinate, 0, 1 );</code></br>
+        <code>}</code></br>
+        <img class="tiny" src="pictures/vertex.svg">
+	</div></section>
+	<section class="slide"><div>
+		<h2>Fragment shader</h2>
+        <code>varying vec2 vCoordinate;</code></br>
+        <code>void main() {</code></br>
+        <code>&nbsp;&nbsp;gl_FragColor = vec4( vCoordinate, 0.0, 1.0 );</code></br>
+        <code>}</code></br>
+        <img class="small" src="pictures/fragment.svg">
+	</div></section>
+	<section class="slide"><div>
+		<h2>Pipeline</h2>
+        <ul>
+            <li>3 types of variables to pass around data:</li>
+            <ol>
+              <li><code>uniform</code> global information</li>
+              <li><code>varying</code> flow from vertex to fragment shader, interpolated</li>
+              <li><code>attribute</code> per vertex information</li>
+            </ol>
+        </ul>
+        <img class="small" src="pictures/pipeline.svg">
+    </div></section>
+	<section class="slide"><div>
+		<h2>WebGL basics - recap</h2>
+		<ul>
+            <li>Ask <code>canvas</code> for a WebGL context</li>
+            <li>Build <code>quad</code> to render</li>
+            <li>Write shaders: <code>vertex</code> &amp; <code>fragment</code></li>
+			<li>Compile into program (in browser)</li>
+            <li>Pass data into program using <code>uniforms</code> and <code>attributes</code></li>
+            <li>Output is rendered into <code>canvas</code> element</li>
+		</ul>
+	</div></section>
 	<section class="slide"><div>
 		<h2>Some code</h2>
-        <div style="background: #202020; overflow:auto;width:auto;padding: 4px;"><pre style="margin: 0; line-height: 125%"><span style="color: #6ab825; font-weight: bold">uniform</span> <span style="color: #6ab825; font-weight: bold">sampler2D</span> <span style="color: #d0d0d0">uTexture;</span>
-
-<span style="color: #6ab825; font-weight: bold">varying</span> <span style="color: #6ab825; font-weight: bold">vec2</span> <span style="color: #d0d0d0">vUv;</span>
-
-<span style="color: #cd2828; font-weight: bold">#define STEP 0.03125</span>
-
-<span style="color: #6ab825; font-weight: bold">void</span> <span style="color: #d0d0d0">main()</span> <span style="color: #d0d0d0">{</span>
-  <span style="color: #6ab825; font-weight: bold">vec4</span> <span style="color: #d0d0d0">above</span> <span style="color: #d0d0d0">=</span> <span style="color: #d0d0d0">texture2D(</span> <span style="color: #d0d0d0">uTexture,</span> <span style="color: #d0d0d0">vUv</span> <span style="color: #d0d0d0">+</span> <span style="color: #6ab825; font-weight: bold">vec2</span><span style="color: #d0d0d0">(</span> <span style="color: #3677a9">0.0</span><span style="color: #d0d0d0">,</span> <span style="color: #d0d0d0">STEP</span> <span style="color: #d0d0d0">)</span> <span style="color: #d0d0d0">);</span>
-  <span style="color: #6ab825; font-weight: bold">vec4</span> <span style="color: #d0d0d0">here</span> <span style="color: #d0d0d0">=</span> <span style="color: #d0d0d0">texture2D(</span> <span style="color: #d0d0d0">uTexture,</span> <span style="color: #d0d0d0">vUv</span> <span style="color: #d0d0d0">);</span>
-
-  <span style="color: #999999; font-style: italic">// Shift block from above us (only blocks in R)</span>
-  <span style="color: #d0d0d0">here.r</span> <span style="color: #d0d0d0">=</span> <span style="color: #d0d0d0">above.r;</span>
-
-  <span style="color: #d0d0d0">gl_FragColor</span> <span style="color: #d0d0d0">=</span> <span style="color: #d0d0d0">here;</span>
-<span style="color: #d0d0d0">}</span>
-        </pre></div>
-
-
-        <img class="small-top" src="pictures/sidebar.png" alt="">
-</div></section>
-
+        <iframe class="snippet" src="snippets/shift.html"></iframe>
+        <p>Slides: <a href="http://felixpalmer.github.io/tetris.gl/presentation.html">felixpalmer.github.io/tetris.gl/presentation.html</a></p>
+	</div></section>
 	<section class="slide"><div>
         <h2>Another slide</h2>
     </div></section>
