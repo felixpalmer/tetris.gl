@@ -1,5 +1,5 @@
-define( ['three', 'boardSize', 'camera', 'controls', 'geometry', 'light', 'material', 'renderer', 'rtt', 'scene', 'texture', 'shader!simple.vert', 'shader!copy.frag', 'shader!shift.frag', 'shader!solidify.frag', 'shader!spawn.frag'],
-function ( THREE, boardSize, camera, controls, geometry, light, material, renderer, RenderToTarget, scene, texture, simpleVert, copyFrag, shiftFrag, solidifyFrag, spawnFrag ) {
+define( ['three', 'boardSize', 'camera', 'container', 'controls', 'geometry', 'light', 'material', 'renderer', 'rtt', 'scene', 'texture', 'shader!simple.vert', 'shader!copy.frag', 'shader!shift.frag', 'shader!solidify.frag', 'shader!spawn.frag'],
+function ( THREE, boardSize, camera, container, controls, geometry, light, material, renderer, RenderToTarget, scene, texture, simpleVert, copyFrag, shiftFrag, solidifyFrag, spawnFrag ) {
   var app = {
     addPass: function ( fragmentShader, input ) {
       fragmentShader.define( 'STEP', 1 / boardSize );
@@ -47,6 +47,9 @@ function ( THREE, boardSize, camera, controls, geometry, light, material, render
         offset += spacing;
         scene.add( mesh );
       } );
+
+      // Listen for clicks
+      container.addEventListener( 'click', app.raycast );
     },
     frame: 0,
     simulationFrame: 0,
@@ -74,7 +77,7 @@ function ( THREE, boardSize, camera, controls, geometry, light, material, render
     },
     animate: function () {
       window.requestAnimationFrame( app.animate );
-      controls.update();
+      //controls.update();
 
       if ( app.frame % app.renderThrottle === 0 ) {
         for ( var i = 0; i < app.simulationRate; i++ ) { app.simulate(); }
@@ -82,7 +85,36 @@ function ( THREE, boardSize, camera, controls, geometry, light, material, render
       app.frame++;
 
       renderer.render( scene, camera );
+    },
+    raycast: function ( e ) {
+      // Reliably get mouse position across browsers
+      var target = e.target || e.srcElement,
+      rect = target.getBoundingClientRect(),
+      offsetX = e.clientX || e.pageX,
+      offsetY = e.clientY || e.pageY;
+      offsetX -= rect.left,
+      offsetY -= rect.top;
+
+      var mouse = {
+        x: ( offsetX / container.offsetWidth ) * 2 - 1, // -1 -> 1
+        y: -( offsetY / container.offsetHeight ) * 2 + 1 // 1 -> -1
+      }
+      var vector = new THREE.Vector3( mouse.x, mouse.y, camera.near );
+      vector.unproject( camera );
+      var raycaster = new THREE.Raycaster( camera.position, vector.sub( camera.position ).normalize() );
+      // See if the ray from the camera into the world hits one of our meshes
+      var intersects = raycaster.intersectObjects( scene.children, true );
+      if ( intersects.length > 0 ) {
+        var object = intersects[0].object;
+        camera.position.copy( object.position );
+        camera.position.z = 400;
+        camera.lookAt( object.position );
+      } else {
+        camera.position.set( 0, 300, 1200 );
+        camera.lookAt( new THREE.Vector3( 0, 300, 0 ) );
+      }
     }
   };
+
   return app;
 } );
