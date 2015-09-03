@@ -33,18 +33,25 @@ function ( THREE, boardSize, camera, controls, geometry, light, material, render
       // Copy to display layer
       material.display.uniforms.uTexture.value = app.copyPass.renderTarget;
 
+      // Add game board to visible stage
       var mesh = new THREE.Mesh( geometry.plane, material.display );
       scene.add( mesh );
 
-      //mesh = new THREE.Mesh( geometry.plane, app.spawnPass.material );
-      mesh = new THREE.Mesh( geometry.plane, material.createDebugShader( app.spawnPass.renderTarget ) );
-      mesh.position.x += 600;
-      scene.add( mesh );
+      // Add debug passes above main game
+      var spacing = 600;
+      var offset = -spacing;
+      [app.spawnPass, app.shiftPass, app.solidifyPass].forEach( function ( pass ) {
+        mesh = new THREE.Mesh( geometry.plane, material.createDebugShader( pass.renderTarget ) );
+        mesh.position.x = offset;
+        mesh.position.y = spacing;
+        offset += spacing;
+        scene.add( mesh );
+      } );
     },
     frame: 0,
     simulationFrame: 0,
     simulationRate: 1, // How many simulations frames are done per render step
-    renderThrottle: 10, // How rAF calls we have per render step (1 for no throttling)
+    renderThrottle: 40, // How rAF calls we have per render step (1 for no throttling)
     simulate: function () {
       // Pipeline
       if ( app.simulationFrame % 20 === 0 ) { // Spawn rate (one every 100 frames)
