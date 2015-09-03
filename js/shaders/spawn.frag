@@ -16,7 +16,7 @@ void main() {
 
   // Create new pixels on top
   float x = ( 1.0 - STEP ) * fract( uRandom );
-  if ( shouldSpawn( vec2( x, 1.0 - 2.0 * STEP ) ) ) {
+  if ( shouldSpawn( vec2( x, 1.0 - 2.0 * STEP ) ) ) { // Spawn one block from top, to avoid edge clamping
     color.r = 1.0;
   }
 

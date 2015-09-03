@@ -2,7 +2,7 @@ define( ['three', 'camera', 'controls', 'geometry', 'light', 'material', 'render
 function ( THREE, camera, controls, geometry, light, material, renderer, RenderToTarget, scene, texture, simpleVert, copyFrag, shiftFrag, spawnFrag, tetrisFrag ) {
   var app = {
     addPass: function ( fragmentShader, input ) {
-      var size = 32.0;
+      var size = 16.0;
       fragmentShader.define( 'STEP', 1 / size );
       var mat = new THREE.ShaderMaterial( {
         uniforms: {
@@ -22,7 +22,7 @@ function ( THREE, camera, controls, geometry, light, material, renderer, RenderT
       app.spawnPass = app.addPass( spawnFrag, null ); // Will add target later
 
       // Shift pass (move it along)
-      app.shiftPass = app.addPass( shiftFrag, app.spawnPass.renderTarget  );
+      app.shiftPass = app.addPass( shiftFrag, null ); // Will add target later
 
       // Solidify pass (detect we've hit something)
       app.solidifyPass = app.addPass( tetrisFrag, app.shiftPass.renderTarget  );
@@ -30,41 +30,46 @@ function ( THREE, camera, controls, geometry, light, material, renderer, RenderT
       // Copy pass (copy from shift, so shift can read)
       app.copyPass = app.addPass( copyFrag, app.solidifyPass.renderTarget  );
 
-      // Bootstrapped, now point spawn at copy to complete loop
+      // Bootstrapped, now point spawn and shift at copy to complete loop
       app.spawnPass.material.uniforms.uTexture.value = app.copyPass.renderTarget;
+      app.shiftPass.material.uniforms.uTexture.value = app.copyPass.renderTarget;
 
       // Copy to display layer
       material.shader.uniforms.uTexture.value = app.copyPass.renderTarget;
     },
     frame: 0,
+    simulationFrame: 0,
+    simulationRate: 1, // How many simulations frames are done per render step
+    renderThrottle: 10, // How rAF calls we have per render step (1 for no throttling)
     simulate: function () {
-      //if ( app.frame % 11 !== 0 ) { // Throttle rate
-      //  return;
-      //}
-
       // Pipeline
-      if ( app.frame % 100 === 0 ) { // Spawn rate
+      if ( app.simulationFrame % 20 === 0 ) { // Spawn rate (one every 100 frames)
+        // Spawn new block
         app.spawnPass.material.uniforms.uRandom.value = Math.random();
         app.spawnPass.process();
 
-        // When we spawn, want to have shift read from spawn...
-        app.shiftPass.material.uniforms.uTexture.value = app.spawnPass.renderTarget;
+        // When we spawn, want to have solidify read from spawn...
+        app.solidifyPass.material.uniforms.uTexture.value = app.spawnPass.renderTarget;
+        app.solidifyPass.process();
+        app.copyPass.process();
       } else {
-        // ...otherwise, just use the copy buffer
-        app.shiftPass.material.uniforms.uTexture.value = app.copyPass.renderTarget;
+        // ...otherwise, read from shift
+        app.solidifyPass.material.uniforms.uTexture.value = app.shiftPass.renderTarget;
+        app.shiftPass.process();
+        app.solidifyPass.process();
+        app.copyPass.process();
       }
-      app.shiftPass.process();
-      app.solidifyPass.process();
-      app.copyPass.process();
-      app.frame++;
+      app.simulationFrame++;
     },
     animate: function () {
       window.requestAnimationFrame( app.animate );
-      //controls.update();
+      controls.update();
 
-      for ( var i = 0; i < 1; i++ ) {
-        app.simulate();
+      if ( app.frame % app.renderThrottle === 0 ) {
+        for ( var i = 0; i < app.simulationRate; i++ ) { app.simulate(); }
       }
+      app.frame++;
+
       renderer.render( scene, camera );
     }
   };
