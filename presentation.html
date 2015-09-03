@@ -35,9 +35,26 @@
 	</div></section>
 	<section class="slide"><div>
 		<h2>Some code</h2>
+        <pre style="background:#181818;color:#f8f8f8">uniform sampler2D uTexture;
+
+varying vec2 vUv;
+
+<span style="color:#5f5a60;font-style:italic">#define STEP 0.03125</span>
+
+void main() {
+  vec4 above <span style="color:#cda869">=</span> texture2D( uTexture, vUv <span style="color:#cda869">+</span> vec2( <span style="color:#cf6a4c">0</span>.<span style="color:#cf6a4c">0</span>, STEP ) );
+  vec4 here <span style="color:#cda869">=</span> texture2D( uTexture, vUv );
+
+  <span style="color:#cda869">/</span><span style="color:#cda869">/</span> Shift block <span style="color:#cda869">from</span> above us (only blocks <span style="color:#cda869">in</span> R)
+  <span style="color:#cf6a4c">here</span>.<span style="color:#cf6a4c">r</span> <span style="color:#cda869">=</span> <span style="color:#cf6a4c">above</span>.<span style="color:#cf6a4c">r</span>;
+
+  gl_FragColor <span style="color:#cda869">=</span> here;
+}
+        </pre>
+
         <img class="right" src="pictures/sidebar.png" alt="">
-	</div></section>
-	<div class="progress"></div>
+</div></section>
+<div class="progress"></div>
 	<script src="shower/shower.min.js"></script>
     <script src="js/config.js"></script>
     <script data-main="../presentation" src="js/require.js"></script>

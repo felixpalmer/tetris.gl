@@ -101,3 +101,12 @@
 .fullscreen img {
   height:100%;
 }
+
+/* Code */
+.slide pre {
+  font: 0.9333em/1.5em Consolas,'Lucida Console','DejaVu Sans Mono',Monaco,'Courier New',monospace;
+  font-size: medium;
+  white-space: pre;
+  margin: 0;
+  padding: 4px;
+}
