@@ -54,7 +54,7 @@ function ( THREE, boardSize, camera, controls, geometry, light, material, render
     renderThrottle: 40, // How rAF calls we have per render step (1 for no throttling)
     simulate: function () {
       // Pipeline
-      if ( app.simulationFrame % 20 === 0 ) { // Spawn rate (one every 100 frames)
+      if ( app.simulationFrame % 5 === 0 ) { // Spawn rate
         // Spawn new block
         app.spawnPass.material.uniforms.uRandom.value = Math.random();
         app.spawnPass.process();
