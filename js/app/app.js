@@ -118,7 +118,7 @@ function ( THREE, boardSize, camera, container, controls, dat, geometry, light, 
       }
       renderer.render( scene, camera );
     },
-    cameraTarget: new THREE.Vector3( 0, 0, 400 ),
+    cameraTarget: new THREE.Vector3( 0, 0, 360 ),
     raycast: function ( e ) {
       // Reliably get mouse position across browsers
       var target = e.target || e.srcElement,

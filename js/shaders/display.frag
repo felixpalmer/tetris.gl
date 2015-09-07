@@ -19,10 +19,6 @@ void main() {
   // Add background
   color += vec3( 0.1 );
 
-  // Add grid
-  color += 0.1 * step( 0.99, cos( 6.283185307179586 * vUv.x / STEP ) );
-  color += 0.1 * step( 0.99, cos( 6.283185307179586 * vUv.y / STEP ) );
-
   if ( block ) {
     vec2 blockUv = fract( vUv / STEP );
     
