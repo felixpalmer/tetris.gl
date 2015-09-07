@@ -54,6 +54,7 @@ function ( THREE, boardSize, camera, container, controls, dat, geometry, light, 
       // GUI controls
       var gui = new dat.GUI();
       gui.add( app, 'simulationRate', 1, 100 ).step( 1 );
+      gui.add( app, 'spawnRate', 1, 10 ).step( 1 );
       gui.add( app, 'renderThrottle', 1, 100 ).step( 1 );
       gui.add( app, 'clear');
     },
@@ -65,6 +66,7 @@ function ( THREE, boardSize, camera, container, controls, dat, geometry, light, 
     frame: 0,
     simulationFrame: 0,
     simulationRate: 1, // How many simulations frames are done per render step
+    spawnRate: 5,
     renderThrottle: 40, // How rAF calls we have per render step (1 for no throttling)
     simulate: function () {
       if ( app.needsClear ) {
@@ -75,8 +77,8 @@ function ( THREE, boardSize, camera, container, controls, dat, geometry, light, 
         app.needsClear = false;
       }
 
-      if ( app.simulationFrame % 5 === 0 ) { // Spawn rate
-        // Spawn new block
+      // Spawn new block
+      if ( app.simulationFrame % app.spawnRate === 0 ) {
         app.spawnPass.material.uniforms.uRandom.value = Math.random();
         app.spawnPass.process();
 
@@ -84,13 +86,13 @@ function ( THREE, boardSize, camera, container, controls, dat, geometry, light, 
         app.solidifyPass.material.uniforms.uTexture.value = app.spawnPass.renderTarget;
         app.solidifyPass.process();
         app.copyPass.process();
-      } else {
-        // ...otherwise, read from shift
-        app.solidifyPass.material.uniforms.uTexture.value = app.shiftPass.renderTarget;
-        app.shiftPass.process();
-        app.solidifyPass.process();
-        app.copyPass.process();
       }
+
+      // Standard game step
+      app.solidifyPass.material.uniforms.uTexture.value = app.shiftPass.renderTarget;
+      app.shiftPass.process();
+      app.solidifyPass.process();
+      app.copyPass.process();
       app.simulationFrame++;
     },
     animate: function () {

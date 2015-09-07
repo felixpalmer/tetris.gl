@@ -91,22 +91,40 @@
 	</div></section>
 	<section class="slide"><div>
 		<h2>All interesting program state kept on CPU</h2>
-        <p>JavaScript controls all state, GPU just doing display</p>
+        <p>JavaScript controls all state, WebGL just doing display</p>
         <img class="small" src="pictures/relationship1.svg">
 	</div></section>
 	<section class="slide"><div>
 		<h2>Render to Texture</h2>
-        <p>I lied... you don't have to render directly to the screen</p>
+		<ul>
+            <li>I lied...</li>
+            <li>...you don't have to render directly to the screen</li>
+            <li>Enables setting up of "pipeline"</li>
+		<ul>
         <img class="small" src="pictures/relationship2.svg">
 	</div></section>
 	<section class="slide"><div>
 		<h2>Render to Texture</h2>
         <p>Why stop with a pipeline when we can have feedback loop?</p>
+        <p>Gives us state on the GPU!</p>
         <img class="small" src="pictures/relationship3.svg">
 	</div></section>
 	<section class="slide"><div>
+		<h2>Shaders</h2>
+		<ul>
+            <li>Each stage will take as input texture</li>
+            <li>...and uniforms from JavaScript</li>
+            <li>Each stage will output single texture</li>
+		<ul>
+	</div></section>
+	<section class="slide"><div>
 		<h2>Building a (very) simple Tetris game</h2>
-        <p>colors of blocks, HLD</p> 
+		<ul>
+            <li>Black pixels represent empty squares</li>
+            <li>Green pixels settled squares</li>
+            <li>Red pixels moving squares</li>
+		<ul>
+        <img class="square" src="pictures/tetris.png">
 	</div></section>
 	<section class="slide"><div>
 		<h2>Process as pipeline</h2>
