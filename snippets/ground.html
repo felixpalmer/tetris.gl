@@ -1,0 +1,16 @@
+<!-- HTML generated using hilite.me --><div style="background: #202020; overflow:auto;width:auto;padding: 10px; font-size: 12pt;"><pre style="margin: 0; line-height: 125%"><span style="color: #6ab825; font-weight: bold">uniform</span> <span style="color: #6ab825; font-weight: bold">sampler2D</span> <span style="color: #d0d0d0">uTexture;</span>
+<span style="color: #6ab825; font-weight: bold">varying</span> <span style="color: #6ab825; font-weight: bold">vec2</span> <span style="color: #d0d0d0">vUv;</span>
+<span style="color: #cd2828; font-weight: bold">#define STEP 0.03125</span>
+
+<span style="color: #6ab825; font-weight: bold">void</span> <span style="color: #d0d0d0">main()</span> <span style="color: #d0d0d0">{</span>
+  <span style="color: #6ab825; font-weight: bold">vec4</span> <span style="color: #d0d0d0">color</span> <span style="color: #d0d0d0">=</span> <span style="color: #d0d0d0">texture2D(</span> <span style="color: #d0d0d0">uTexture,</span> <span style="color: #d0d0d0">vUv</span> <span style="color: #d0d0d0">);</span> <span style="color: #999999; font-style: italic">// current value</span>
+
+  <span style="color: #999999; font-style: italic">// Ground</span>
+  <span style="color: #6ab825; font-weight: bold">if</span> <span style="color: #d0d0d0">(</span> <span style="color: #d0d0d0">vUv.y</span> <span style="color: #d0d0d0">&lt;</span> <span style="color: #d0d0d0">STEP</span> <span style="color: #d0d0d0">)</span> <span style="color: #d0d0d0">{</span>
+    <span style="color: #d0d0d0">color.g</span> <span style="color: #d0d0d0">=</span> <span style="color: #3677a9">1.0</span><span style="color: #d0d0d0">;</span>
+  <span style="color: #d0d0d0">}</span>
+
+  <span style="color: #d0d0d0">gl_FragColor</span> <span style="color: #d0d0d0">=</span> <span style="color: #d0d0d0">color;</span>
+<span style="color: #d0d0d0">}</span>
+</pre></div>
+
