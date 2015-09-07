@@ -1,5 +1,5 @@
-define( ['three', 'boardSize', 'camera', 'container', 'controls', 'geometry', 'light', 'material', 'renderer', 'rtt', 'scene', 'texture', 'shader!simple.vert', 'shader!copy.frag', 'shader!shift.frag', 'shader!solidify.frag', 'shader!spawn.frag'],
-function ( THREE, boardSize, camera, container, controls, geometry, light, material, renderer, RenderToTarget, scene, texture, simpleVert, copyFrag, shiftFrag, solidifyFrag, spawnFrag ) {
+define( ['three', 'boardSize', 'camera', 'container', 'controls', 'dat', 'geometry', 'light', 'material', 'renderer', 'rtt', 'scene', 'texture', 'shader!simple.vert', 'shader!copy.frag', 'shader!shift.frag', 'shader!solidify.frag', 'shader!spawn.frag'],
+function ( THREE, boardSize, camera, container, controls, dat, geometry, light, material, renderer, RenderToTarget, scene, texture, simpleVert, copyFrag, shiftFrag, solidifyFrag, spawnFrag ) {
   var app = {
     addPass: function ( fragmentShader, input ) {
       fragmentShader.define( 'STEP', 1 / boardSize );
@@ -50,6 +50,11 @@ function ( THREE, boardSize, camera, container, controls, geometry, light, mater
 
       // Listen for clicks
       container.addEventListener( 'click', app.raycast );
+
+      // GUI controls
+      var gui = new dat.GUI();
+      gui.add( app, 'simulationRate', 1, 100 ).step( 1 );
+      gui.add( app, 'renderThrottle', 1, 100 ).step( 1 );
     },
     frame: 0,
     simulationFrame: 0,
@@ -103,7 +108,7 @@ function ( THREE, boardSize, camera, container, controls, geometry, light, mater
       var mouse = {
         x: ( offsetX / container.offsetWidth ) * 2 - 1, // -1 -> 1
         y: -( offsetY / container.offsetHeight ) * 2 + 1 // 1 -> -1
-      }
+      };
       var vector = new THREE.Vector3( mouse.x, mouse.y, camera.near );
       vector.unproject( camera );
       var raycaster = new THREE.Raycaster( camera.position, vector.sub( camera.position ).normalize() );
