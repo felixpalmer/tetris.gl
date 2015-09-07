@@ -1,0 +1,32 @@
+<?xml version="1.0"?>
+<svg width="400.00000000000006" height="275" xmlns="http://www.w3.org/2000/svg" xmlns:svg="http://www.w3.org/2000/svg" xmlns:se="http://svg-edit.googlecode.com">
+ <!-- Created with SVG-edit - http://svg-edit.googlecode.com/ -->
+ <defs>
+  <marker refY="50" refX="50" markerHeight="5" markerWidth="5" viewBox="0 0 100 100" se_type="rightarrow" orient="auto" markerUnits="strokeWidth" id="se_marker_mid_svg_5">
+   <path stroke-width="10" stroke="#000000" fill="#000000" d="m100,50l-100,40l30,-40l-30,-40z"/>
+  </marker>
+  <marker refY="50" refX="50" markerHeight="5" markerWidth="5" viewBox="0 0 100 100" se_type="rightarrow" orient="auto" markerUnits="strokeWidth" id="se_marker_mid_svg_7">
+   <path stroke-width="10" stroke="#000000" fill="#000000" d="m100,50l-100,40l30,-40l-30,-40z"/>
+  </marker>
+  <marker refY="50" refX="50" markerHeight="5" markerWidth="5" viewBox="0 0 100 100" se_type="rightarrow" orient="auto" markerUnits="strokeWidth" id="se_marker_mid_svg_15">
+   <path stroke-width="10" stroke="#000000" fill="#000000" d="m100,50l-100,40l30,-40l-30,-40z"/>
+  </marker>
+  <marker refY="50" refX="50" markerHeight="5" markerWidth="5" viewBox="0 0 100 100" se_type="rightarrow" orient="auto" markerUnits="strokeWidth" id="se_marker_mid_svg_16">
+   <path stroke-width="10" stroke="#000000" fill="#000000" d="m100,50l-100,40l30,-40l-30,-40z"/>
+  </marker>
+ </defs>
+ <g>
+  <title>Layer 1</title>
+  <polyline marker-mid="url(#se_marker_mid_svg_16)" se:connector="svg_3 svg_14" fill="none" stroke-width="2" stroke="#000000" points="325,125 325,137.5 325,150" id="svg_16"/>
+  <polyline marker-mid="url(#se_marker_mid_svg_7)" se:connector="svg_1 svg_3" fill="none" stroke-width="2" stroke="#000000" points="250.75001525878906,75 262.875,75 275,75" id="svg_7"/>
+  <polyline marker-mid="url(#se_marker_mid_svg_5)" se:connector="svg_24 svg_1" fill="none" stroke-width="2" stroke="#000000" points="125,75 137.875,75 150.75001525878906,75" id="svg_5"/>
+  <rect stroke="#000000" fill="#ffffff" stroke-dasharray="null" stroke-linejoin="null" stroke-linecap="null" x="25" y="25" width="100" height="100" id="svg_24"/>
+  <text stroke="#000000" transform="matrix(0.6965555548667908,0,0,0.6965555548667908,60.086741455830634,29.358250066637993) " fill="#000000" stroke-width="0" stroke-dasharray="null" stroke-linejoin="null" stroke-linecap="null" x="21.408931" y="73.783538" id="svg_26" font-size="24" font-family="Sans-serif" text-anchor="middle" xml:space="preserve">JavaScript</text>
+  <rect id="svg_1" stroke="#000000" fill="#ffffff" stroke-dasharray="null" stroke-linejoin="null" stroke-linecap="null" x="150.750019" y="25" width="100" height="100"/>
+  <text id="svg_2" stroke="#000000" transform="matrix(0.6965555548667908,0,0,0.6965555548667908,60.086741455830634,29.358250066637993) " fill="#000000" stroke-width="0" stroke-dasharray="null" stroke-linejoin="null" stroke-linecap="null" x="199.065121" y="73.783538" font-size="24" font-family="Sans-serif" text-anchor="middle" xml:space="preserve">WebGL</text>
+  <rect id="svg_3" stroke="#000000" fill="#ffffff" stroke-dasharray="null" stroke-linejoin="null" stroke-linecap="null" x="275" y="25" width="100" height="100"/>
+  <text style="cursor: move;" id="svg_4" stroke="#000000" transform="matrix(0.6965555548667908,0,0,0.6965555548667908,60.086741455830634,29.358250066637993) " fill="#000000" stroke-width="0" stroke-dasharray="null" stroke-linejoin="null" stroke-linecap="null" x="380.313642" y="73.783538" font-size="24" font-family="Sans-serif" text-anchor="middle" xml:space="preserve">WebGL</text>
+  <rect marker-mid="url(#se_marker_mid_svg_15)" id="svg_14" stroke="#000000" fill="#ffffff" stroke-dasharray="null" stroke-linejoin="null" stroke-linecap="null" x="275" y="150" width="100" height="100"/>
+  <text marker-mid="url(#se_marker_mid_svg_15)" id="svg_15" stroke="#000000" transform="matrix(0.6965555548667908,0,0,0.6965555548667908,60.086741455830634,29.358250066637993) " fill="#000000" stroke-width="0" stroke-dasharray="null" stroke-linejoin="null" stroke-linecap="null" x="380.320094" y="253.156148" font-size="24" font-family="Sans-serif" text-anchor="middle" xml:space="preserve">Screen</text>
+ </g>
+</svg>
