@@ -55,13 +55,26 @@ function ( THREE, boardSize, camera, container, controls, dat, geometry, light, 
       var gui = new dat.GUI();
       gui.add( app, 'simulationRate', 1, 100 ).step( 1 );
       gui.add( app, 'renderThrottle', 1, 100 ).step( 1 );
+      gui.add( app, 'clear');
+    },
+    blank: new THREE.Texture(),
+    needsClear: false,
+    clear: function () {
+      app.needsClear = true;
     },
     frame: 0,
     simulationFrame: 0,
     simulationRate: 1, // How many simulations frames are done per render step
     renderThrottle: 40, // How rAF calls we have per render step (1 for no throttling)
     simulate: function () {
-      // Pipeline
+      if ( app.needsClear ) {
+        // Read blank texture into copyPass to clear out game state
+        app.copyPass.material.uniforms.uTexture.value = app.blank;
+        app.copyPass.process();
+        app.copyPass.material.uniforms.uTexture.value = app.solidifyPass.renderTarget;
+        app.needsClear = false;
+      }
+
       if ( app.simulationFrame % 5 === 0 ) { // Spawn rate
         // Spawn new block
         app.spawnPass.material.uniforms.uRandom.value = Math.random();
