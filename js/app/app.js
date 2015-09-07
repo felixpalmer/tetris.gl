@@ -59,6 +59,7 @@ function ( THREE, boardSize, camera, container, controls, dat, geometry, light, 
       app.gui.add( app, 'spawnRate', 1, 10 ).step( 1 );
       app.gui.add( app, 'renderThrottle', 1, 100 ).step( 1 );
       app.gui.add( app, 'clear');
+      app.gui.close();
     },
     reset: function () {
       app.needsClear = true;
@@ -67,6 +68,7 @@ function ( THREE, boardSize, camera, container, controls, dat, geometry, light, 
       app.simulationRate = 1; // How many simulations frames are done per render step
       app.spawnRate = 5;
       app.renderThrottle = 40; // How rAF calls we have per render step (1 for no throttling)
+      app.cameraTarget = new THREE.Vector3( 0, 0, 360 );
     },
     blank: new THREE.Texture(),
     needsClear: false,
@@ -118,7 +120,6 @@ function ( THREE, boardSize, camera, container, controls, dat, geometry, light, 
       }
       renderer.render( scene, camera );
     },
-    cameraTarget: new THREE.Vector3( 0, 0, 360 ),
     raycast: function ( e ) {
       // Reliably get mouse position across browsers
       var target = e.target || e.srcElement,
@@ -140,9 +141,9 @@ function ( THREE, boardSize, camera, container, controls, dat, geometry, light, 
       if ( intersects.length > 0 ) {
         var object = intersects[0].object;
         app.cameraTarget = object.position.clone();
-        app.cameraTarget.z = 400;
+        app.cameraTarget.z = 360;
       } else {
-        app.cameraTarget.set( 0, 300, 1200 );
+        app.cameraTarget.set( 0, 300, 800 );
       }
     }
   };
