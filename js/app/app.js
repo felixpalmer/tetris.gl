@@ -49,14 +49,14 @@ function ( THREE, boardSize, camera, container, controls, dat, geometry, light, 
       } );
 
       // Listen for clicks
-      container.addEventListener( 'click', app.raycast );
+      renderer.domElement.addEventListener( 'click', app.raycast );
 
       // GUI controls
-      var gui = new dat.GUI();
-      gui.add( app, 'simulationRate', 1, 100 ).step( 1 );
-      gui.add( app, 'spawnRate', 1, 10 ).step( 1 );
-      gui.add( app, 'renderThrottle', 1, 100 ).step( 1 );
-      gui.add( app, 'clear');
+      app.gui = new dat.GUI();
+      app.gui.add( app, 'simulationRate', 1, 100 ).step( 1 );
+      app.gui.add( app, 'spawnRate', 1, 10 ).step( 1 );
+      app.gui.add( app, 'renderThrottle', 1, 100 ).step( 1 );
+      app.gui.add( app, 'clear');
     },
     blank: new THREE.Texture(),
     needsClear: false,
@@ -97,6 +97,9 @@ function ( THREE, boardSize, camera, container, controls, dat, geometry, light, 
     },
     animate: function () {
       window.requestAnimationFrame( app.animate );
+      app.tick();
+    },
+    tick: function () {
       //controls.update();
 
       if ( app.frame % app.renderThrottle === 0 ) {
@@ -121,8 +124,8 @@ function ( THREE, boardSize, camera, container, controls, dat, geometry, light, 
       offsetY -= rect.top;
 
       var mouse = {
-        x: ( offsetX / container.offsetWidth ) * 2 - 1, // -1 -> 1
-        y: -( offsetY / container.offsetHeight ) * 2 + 1 // 1 -> -1
+        x: ( offsetX / rect.width ) * 2 - 1, // -1 -> 1
+        y: -( offsetY / rect.height ) * 2 + 1 // 1 -> -1
       };
       var vector = new THREE.Vector3( mouse.x, mouse.y, camera.near );
       vector.unproject( camera );
