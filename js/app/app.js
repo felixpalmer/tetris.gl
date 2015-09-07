@@ -14,6 +14,8 @@ function ( THREE, boardSize, camera, container, controls, dat, geometry, light, 
       return new RenderToTarget( mat, boardSize );
     },
     init: function () {
+      app.reset();
+
       // Spawn pass (create new stuff)
       app.spawnPass = app.addPass( spawnFrag, null ); // Will add target later
 
@@ -58,16 +60,19 @@ function ( THREE, boardSize, camera, container, controls, dat, geometry, light, 
       app.gui.add( app, 'renderThrottle', 1, 100 ).step( 1 );
       app.gui.add( app, 'clear');
     },
+    reset: function () {
+      app.needsClear = true;
+      app.frame = 0;
+      app.simulationFrame = 0;
+      app.simulationRate = 1; // How many simulations frames are done per render step
+      app.spawnRate = 5;
+      app.renderThrottle = 40; // How rAF calls we have per render step (1 for no throttling)
+    },
     blank: new THREE.Texture(),
     needsClear: false,
     clear: function () {
       app.needsClear = true;
     },
-    frame: 0,
-    simulationFrame: 0,
-    simulationRate: 1, // How many simulations frames are done per render step
-    spawnRate: 5,
-    renderThrottle: 40, // How rAF calls we have per render step (1 for no throttling)
     simulate: function () {
       if ( app.needsClear ) {
         // Read blank texture into copyPass to clear out game state

@@ -35,8 +35,10 @@ require( ['detector', 'app', 'container', 'material', 'renderer'], function ( De
           rendering = false;
         }
 
+        app.reset();
+
         // Insert slide specific setup here
-        if ( slideNumber === 1 ) {
+        if ( slideNumber === 177 ) {
           app.gui.domElement.style.display = 'block';
         } else {
           app.gui.domElement.style.display = 'none';
