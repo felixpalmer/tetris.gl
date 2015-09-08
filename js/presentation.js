@@ -38,7 +38,7 @@ require( ['detector', 'app', 'container', 'material', 'renderer'], function ( De
         app.reset();
 
         // Insert slide specific setup here
-        if ( slideNumber === 21 ) {
+        if ( slideNumber === 22 ) {
           app.gui.domElement.style.display = 'block';
           app.renderThrottle = 5;
         } else {

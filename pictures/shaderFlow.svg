@@ -35,8 +35,8 @@
   <rect id="svg_6" height="100" width="100" y="25" x="275" stroke="#000000" fill="#ffffff"/>
   <text style="cursor: move;" id="svg_7" xml:space="preserve" text-anchor="middle" font-family="serif" font-size="24" y="82.75" x="325" stroke-linecap="null" stroke-linejoin="null" stroke-dasharray="null" stroke-width="0" stroke="#000000" fill="#000000">Solidify</text>
   <rect id="svg_8" height="100" width="100" y="149.5" x="25" stroke="#000000" fill="#ffffff"/>
-  <text id="svg_9" xml:space="preserve" text-anchor="middle" font-family="serif" font-size="24" y="207.25" x="75" stroke-linecap="null" stroke-linejoin="null" stroke-dasharray="null" stroke-width="0" stroke="#000000" fill="#000000">Copy</text>
+  <text id="svg_9" xml:space="preserve" text-anchor="middle" font-family="serif" font-size="24" y="207.25" x="75" stroke-linecap="null" stroke-linejoin="null" stroke-dasharray="null" stroke-width="0" stroke="#000000" fill="#000000">Display</text>
   <rect id="svg_10" height="100" width="100" y="149.5" x="180" stroke="#000000" fill="#ffffff"/>
-  <text id="svg_11" xml:space="preserve" text-anchor="middle" font-family="serif" font-size="24" y="207.75" x="230" stroke-linecap="null" stroke-linejoin="null" stroke-dasharray="null" stroke-width="0" stroke="#000000" fill="#000000">Display</text>
+  <text id="svg_11" xml:space="preserve" text-anchor="middle" font-family="serif" font-size="24" y="207.75" x="230" stroke-linecap="null" stroke-linejoin="null" stroke-dasharray="null" stroke-width="0" stroke="#000000" fill="#000000">Copy</text>
  </g>
 </svg>
