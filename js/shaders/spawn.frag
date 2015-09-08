@@ -27,7 +27,7 @@ void main() {
 
   // Ground
   if ( vUv.y < STEP ) {
-    color.gb = vec2( 1.0 );
+    color.g = 1.0;
   }
 
   gl_FragColor = color;

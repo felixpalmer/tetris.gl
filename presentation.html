@@ -1,0 +1,186 @@
+<!DOCTYPE HTML>
+<html lang="en">
+<head>
+	<title>Through the looking glass</title>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=792, user-scalable=no">
+	<meta http-equiv="x-ua-compatible" content="ie=edge">
+	<link rel="stylesheet" href="shower/themes/ribbon/styles/screen.css">
+	<link rel="stylesheet" href="css/presentation.css">
+</head>
+<body class="list">
+	<header class="caption">
+		<h1>Through the looking glass - programming on the GPU using WebGL</h1>
+		<p>Felix Palmer | @pheeelicks | www.pheelicks.com</p>
+	</header>
+	<section class="slide cover fullscreen"><div>
+		<h2>Through the looking glass - programming on the GPU using WebGL</h2>
+        </br>
+		<p>Felix Palmer | @pheeelicks | www.pheelicks.com</p>
+        <p>Slides: <a href="http://felixpalmer.github.io/tetris.gl/presentation.html">felixpalmer.github.io/tetris.gl/presentation.html</a></p>
+        <p>Code: <a href="https://github.com/felixpalmer/tetris.gl">github.com/felixpalmer/tetris.gl</a></p>
+        <div id="threejs-container" class="threejs-container">Loading...</div>
+	</div></section>
+	<section class="slide"><div>
+		<h2>Overview</h2>
+		<ul>
+			<li>One</li>
+			<li>Two...</li>
+			<li>Three!</li>
+		</ul>
+        </br>
+        </br>
+        <p>Slides: <a href="http://felixpalmer.github.io/tetris.gl/presentation.html">felixpalmer.github.io/tetris.gl/presentation.html</a></p>
+        <div class="threejs-container small-top">Loading...</div>
+	</div></section>
+    <section class="slide"><div>
+		<h2>WebGL basics</h2>
+		<ul>
+            <li>Ask <code>canvas</code> for a WebGL context</li>
+            <li>Build <code>quad</code> to render</li>
+            <li>Write shaders: <code>vertex</code> &amp; <code>fragment</code></li>
+			<li>Compile into program (in browser)</li>
+            <li>Pass data into program using <code>uniforms</code> and <code>attributes</code></li>
+            <li>Output is rendered into <code>canvas</code> element</li>
+		</ul>
+	</div></section>
+	<section class="slide"><div>
+		<h2>Getting a WebGL context</h2>
+        <iframe class="snippet" src="snippets/getContext.html"></iframe>
+	</div></section>
+	<section class="slide"><div>
+		<h2>Define a quad</h2>
+        <iframe class="snippet" src="snippets/defineQuad.html"></iframe>
+        <img class="small" src="pictures/vertex.svg">
+	</div></section>
+	<section class="slide shout"><div>
+		<h2>Shaders</h2>
+	</div></section>
+	<section class="slide"><div>
+		<h2>Vertex shader</h2>
+        <iframe class="snippet" src="snippets/basicVert.html"></iframe>
+        <img class="tiny" src="pictures/vertex.svg">
+	</div></section>
+	<section class="slide"><div>
+		<h2>Fragment shader</h2>
+        <iframe class="snippet" src="snippets/basicFrag.html"></iframe>
+        <img class="small" src="pictures/fragment.svg">
+	</div></section>
+	<section class="slide"><div>
+		<h2>Pipeline</h2>
+        <ul>
+            <li>3 types of variables to pass around data:</li>
+            <ol>
+              <li><code>uniform</code> global information</li>
+              <li><code>varying</code> flow from vertex to fragment shader, interpolated</li>
+              <li><code>attribute</code> per vertex information</li>
+            </ol>
+        </ul>
+        <img class="small" src="pictures/pipeline.svg">
+    </div></section>
+	<section class="slide"><div>
+		<h2>WebGL basics - recap</h2>
+		<ul>
+            <li>Ask <code>canvas</code> for a WebGL context</li>
+            <li>Build <code>quad</code> to render</li>
+            <li>Write shaders: <code>vertex</code> &amp; <code>fragment</code></li>
+			<li>Compile into program (in browser)</li>
+            <li>Pass data into program using <code>uniforms</code> and <code>attributes</code></li>
+            <li>Output is rendered into <code>canvas</code> element</li>
+		</ul>
+	</div></section>
+	<section class="slide"><div>
+		<h2>All interesting program state kept on CPU</h2>
+        <p>JavaScript controls all state, WebGL just doing display</p>
+        <img class="small" src="pictures/relationship1.svg">
+	</div></section>
+	<section class="slide"><div>
+		<h2>Render to Texture</h2>
+		<ul>
+            <li>I lied...</li>
+            <li>...you don't have to render directly to the screen</li>
+            <li>Enables setting up of "pipeline"</li>
+		<ul>
+        <img class="small" src="pictures/relationship2.svg">
+	</div></section>
+	<section class="slide"><div>
+		<h2>Render to Texture</h2>
+        <p>Why stop with a pipeline when we can have feedback loop?</p>
+        <p>Gives us state on the GPU!</p>
+        <img class="small" src="pictures/relationship3.svg">
+	</div></section>
+	<section class="slide"><div>
+		<h2>Shaders</h2>
+		<ul>
+            <li>Each stage will take as input texture</li>
+            <li>...and uniforms from JavaScript</li>
+            <li>Each stage will output single texture</li>
+		<ul>
+	</div></section>
+	<section class="slide"><div>
+		<h2>Building a (very) simple Tetris game</h2>
+		<ul>
+            <li>Black pixels represent empty squares</li>
+            <li>Green pixels settled squares</li>
+            <li>Red pixels moving squares</li>
+		<ul>
+        <img class="square" src="pictures/tetris.png">
+	</div></section>
+	<section class="slide"><div>
+		<h2>Process as pipeline</h2>
+		<ul>
+            <li>Split into discrete processing steps</li>
+            <li>Orchestrate flow from JavaScript</li>
+		<ul>
+        <img class="small" src="pictures/pipeline.svg">
+	</div></section>
+	<section class="slide"><div>
+		<h2>Drawing the ground</h2>
+        <iframe class="snippet" src="snippets/ground.html"></iframe>
+        <img class="square-small" src="pictures/ground.png">
+	</div></section>
+	<section class="slide"><div>
+		<h2>Spawning blocks</h2>
+        <iframe class="snippet" src="snippets/spawn1.html"></iframe>
+        <img class="square-small" src="pictures/spawn.png">
+	</div></section>
+	<section class="slide"><div>
+		<h2>Spawning blocks at position</h2>
+        <iframe class="snippet" src="snippets/spawn2.html"></iframe>
+	</div></section>
+	<section class="slide"><div>
+		<h2>Shifting blocks along</h2>
+        <iframe class="snippet" src="snippets/shift.html"></iframe>
+        <img class="square-small-top" src="pictures/spawnFull.png">
+        <img class="square-small" src="pictures/shifted.png">
+	</div></section>
+	<section class="slide"><div>
+		<h2>Hit detection</h2>
+        <iframe class="snippet" src="snippets/solidify.html"></iframe>
+        <img class="square-small-top" src="pictures/preSolid.png">
+        <img class="square-small" src="pictures/postSolid.png">
+	</div></section>
+	<section class="slide"><div>
+		<h2>Problem with hit detection</h2>
+        <div class="threejs-container">Loading...</div>
+	</div></section>
+	<section class="slide"><div>
+		<h2>Better hit detection</h2>
+	</div></section>
+	<section class="slide"><div>
+		<h2>Lying for loops</h2>
+	</div></section>
+	<section class="slide"><div>
+		<h2>Throughput is king</h2>
+	</div></section>
+	<section class="slide"><div>
+		<h2>Putting it all together</h2>
+	</div></section>
+	<section class="slide"><div>
+        <h2>Another slide</h2>
+    </div></section>
+	<script src="shower/shower.min.js"></script>
+    <script src="js/config.js"></script>
+    <script data-main="../presentation" src="js/require.js"></script>
+</body>
+</html>

@@ -7,6 +7,7 @@ var require = {
     'threeCore': { exports: 'THREE' },
     'TrackballControls': { deps: ['threeCore'], exports: 'THREE' },
     // --- end THREE sub-components
+    'dat': { exports: 'dat' },
     'detector': { exports: 'Detector' },
     'stats': { exports: 'Stats' }
   },
@@ -17,6 +18,7 @@ var require = {
     threeCore: '../lib/three.min',
     TrackballControls: '../lib/controls/TrackballControls',
     // --- end THREE sub-components
+    dat: '../lib/dat.gui.min',
     detector: '../lib/Detector',
     stats: '../lib/stats.min',
     // Require.js plugins
