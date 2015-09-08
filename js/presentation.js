@@ -41,6 +41,9 @@ require( ['detector', 'app', 'container', 'material', 'renderer'], function ( De
         if ( slideNumber === 22 ) {
           app.gui.domElement.style.display = 'block';
           app.renderThrottle = 5;
+        } else if ( slideNumber === 29 ) {
+          app.gui.domElement.style.display = 'none';
+          app.kthxbye = true;
         } else {
           app.gui.domElement.style.display = 'none';
         }

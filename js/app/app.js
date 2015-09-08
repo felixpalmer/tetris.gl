@@ -73,14 +73,17 @@ function ( THREE, boardSize, camera, container, controls, dat, geometry, light, 
     },
     blank: new THREE.Texture(),
     needsClear: false,
-    clear: function () {
-      app.needsClear = true;
-    },
+    clear: function () { app.needsClear = true; },
+    kthxbye: false,
     simulate: function () {
       if ( app.needsClear ) {
         // Read blank texture into copyPass to clear out game state
-        app.copyPass.material.uniforms.uTexture.value = app.blank;
-        //app.copyPass.material.uniforms.uTexture.value = texture.kthxbye;
+        if ( app.kthxbye ) {
+          app.copyPass.material.uniforms.uTexture.value = texture.kthxbye;
+          app.kthxbye = false;
+        } else {
+          app.copyPass.material.uniforms.uTexture.value = app.blank;
+        }
         app.copyPass.process();
         app.copyPass.material.uniforms.uTexture.value = app.solidifyPass.renderTarget;
         app.needsClear = false;
