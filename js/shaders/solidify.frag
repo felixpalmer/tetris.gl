@@ -11,9 +11,9 @@ bool naiveHitBlock() {
   return below.g > 0.5;
 }
 
-// Also consider up to 5 blocks below us if we have a moving block below
+// Also consider up to 7 blocks below us if we have a moving block below
 bool betterHitBlock() {
-  for ( float offset = STEP; offset < 5.0 * STEP; offset += STEP ) {
+  for ( float offset = STEP; offset < 7.0 * STEP; offset += STEP ) {
     vec4 below = texture2D( uTexture, vUv - vec2( 0.0, offset ) );
     if ( below.g > 0.5 ) {
       // Block below us is solid. We have a hit!

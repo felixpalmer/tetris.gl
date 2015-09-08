@@ -1,6 +1,6 @@
-define( ["three"], function ( THREE ) {
-  var texturePath = "js/textures/";
+define( ['three'], function ( THREE ) {
+  var texturePath = 'js/textures/';
   return {
-    grass: THREE.ImageUtils.loadTexture( texturePath + "grass.png" )
+    kthxbye: THREE.ImageUtils.loadTexture( texturePath + 'kthxbye.png' )
   };
 } );

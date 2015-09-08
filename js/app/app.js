@@ -80,6 +80,7 @@ function ( THREE, boardSize, camera, container, controls, dat, geometry, light, 
       if ( app.needsClear ) {
         // Read blank texture into copyPass to clear out game state
         app.copyPass.material.uniforms.uTexture.value = app.blank;
+        //app.copyPass.material.uniforms.uTexture.value = texture.kthxbye;
         app.copyPass.process();
         app.copyPass.material.uniforms.uTexture.value = app.solidifyPass.renderTarget;
         app.needsClear = false;
