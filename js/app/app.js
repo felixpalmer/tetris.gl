@@ -69,6 +69,7 @@ function ( THREE, boardSize, camera, container, controls, dat, geometry, light, 
       app.spawnRate = 5;
       app.renderThrottle = 40; // How rAF calls we have per render step (1 for no throttling)
       app.cameraTarget = new THREE.Vector3( 0, 0, 360 );
+      camera.position.copy( app.cameraTarget );
     },
     blank: new THREE.Texture(),
     needsClear: false,

@@ -1,42 +1,24 @@
-<svg width="400.00000000000006" height="275" xmlns="http://www.w3.org/2000/svg" xmlns:svg="http://www.w3.org/2000/svg" xmlns:se="http://svg-edit.googlecode.com">
+<svg width="600" height="400" xmlns="http://www.w3.org/2000/svg" xmlns:svg="http://www.w3.org/2000/svg">
  <!-- Created with SVG-edit - http://svg-edit.googlecode.com/ -->
- <defs>
-  <marker refY="50" refX="50" markerHeight="5" markerWidth="5" viewBox="0 0 100 100" se_type="rightarrow" orient="auto" markerUnits="strokeWidth" id="se_marker_mid_svg_17">
-   <path stroke-width="10" stroke="#000000" fill="#000000" d="m100,50l-100,40l30,-40l-30,-40z"/>
-  </marker>
-  <marker refY="50" refX="50" markerHeight="5" markerWidth="5" viewBox="0 0 100 100" se_type="rightarrow" orient="auto" markerUnits="strokeWidth" id="se_marker_mid_svg_18">
-   <path stroke-width="10" stroke="#000000" fill="#000000" d="m100,50l-100,40l30,-40l-30,-40z"/>
-  </marker>
-  <marker refY="50" refX="50" markerHeight="5" markerWidth="5" viewBox="0 0 100 100" se_type="rightarrow" orient="auto" markerUnits="strokeWidth" id="se_marker_mid_svg_19">
-   <path stroke-width="10" stroke="#000000" fill="#000000" d="m100,50l-100,40l30,-40l-30,-40z"/>
-  </marker>
-  <marker refY="50" refX="50" markerHeight="5" markerWidth="5" viewBox="0 0 100 100" se_type="rightarrow" orient="auto" markerUnits="strokeWidth" id="se_marker_mid_svg_20">
-   <path stroke-width="10" stroke="#0000ff" fill="#0000ff" d="m100,50l-100,40l30,-40l-30,-40z"/>
-  </marker>
-  <marker refY="50" refX="50" markerHeight="5" markerWidth="5" viewBox="0 0 100 100" se_type="rightarrow" orient="auto" markerUnits="strokeWidth" id="se_marker_mid_svg_21">
-   <path stroke-width="10" stroke="#ff0000" fill="#ff0000" d="m100,50l-100,40l30,-40l-30,-40z"/>
-  </marker>
-  <marker refY="50" refX="50" markerHeight="5" markerWidth="5" viewBox="0 0 100 100" se_type="rightarrow" orient="auto" markerUnits="strokeWidth" id="se_marker_mid_svg_22">
-   <path stroke-width="10" stroke="#000000" fill="#000000" d="m100,50l-100,40l30,-40l-30,-40z"/>
-  </marker>
- </defs>
  <g>
   <title>Layer 1</title>
-  <polyline marker-mid="url(#se_marker_mid_svg_22)" se:connector="svg_10 svg_9" fill="none" stroke-width="2" stroke="#000000" points="180,199.5 143.8359375,199.5 107.671875,199.5" id="svg_22"/>
-  <polyline marker-mid="url(#se_marker_mid_svg_21)" se:connector="svg_10 svg_1" fill="none" stroke-width="2" stroke="#ff0000" points="180,159.33871459960938 152.75,137.4508056640625 125.5,115.56290435791016" id="svg_21"/>
-  <polyline marker-mid="url(#se_marker_mid_svg_20)" se:connector="svg_10 svg_4" fill="none" stroke-width="2" stroke="#0000ff" points="217.95181274414062,149.5 215.06024169921875,137.5 212.16867065429688,125.5" id="svg_20"/>
-  <polyline marker-mid="url(#se_marker_mid_svg_19)" se:connector="svg_6 svg_10" fill="none" stroke-width="2" stroke="#000000" points="286.4658508300781,125.5 277.3092346191406,137.5 268.1526184082031,149.5" id="svg_19"/>
-  <polyline marker-mid="url(#se_marker_mid_svg_18)" se:connector="svg_4 svg_6" fill="none" stroke-width="2" stroke="#000000" points="250.5,75 262.5,75 274.5,75" id="svg_18"/>
-  <polyline marker-mid="url(#se_marker_mid_svg_17)" se:connector="svg_1 svg_4" fill="none" stroke-width="2" stroke="#000000" points="125.5,75 137.5,75 149.5,75" id="svg_17"/>
-  <rect id="svg_1" height="100" width="100" y="25" x="25" stroke="#000000" fill="#ffffff"/>
-  <text xml:space="preserve" text-anchor="middle" font-family="serif" font-size="24" id="svg_3" y="82.75" x="75" stroke-linecap="null" stroke-linejoin="null" stroke-dasharray="null" stroke-width="0" stroke="#000000" fill="#000000">Spawn</text>
-  <rect id="svg_4" height="100" width="100" y="25" x="150" stroke="#000000" fill="#ffffff"/>
-  <text style="cursor: move;" id="svg_5" xml:space="preserve" text-anchor="middle" font-family="serif" font-size="24" y="83.25" x="200" stroke-linecap="null" stroke-linejoin="null" stroke-dasharray="null" stroke-width="0" stroke="#000000" fill="#000000">Shift</text>
-  <rect id="svg_6" height="100" width="100" y="25" x="275" stroke="#000000" fill="#ffffff"/>
-  <text style="cursor: move;" id="svg_7" xml:space="preserve" text-anchor="middle" font-family="serif" font-size="24" y="82.75" x="325" stroke-linecap="null" stroke-linejoin="null" stroke-dasharray="null" stroke-width="0" stroke="#000000" fill="#000000">Solidify</text>
-  <rect id="svg_8" height="100" width="100" y="149.5" x="25" stroke="#000000" fill="#ffffff"/>
-  <text id="svg_9" xml:space="preserve" text-anchor="middle" font-family="serif" font-size="24" y="207.25" x="75" stroke-linecap="null" stroke-linejoin="null" stroke-dasharray="null" stroke-width="0" stroke="#000000" fill="#000000">Copy</text>
-  <rect id="svg_10" height="100" width="100" y="149.5" x="180" stroke="#000000" fill="#ffffff"/>
-  <text id="svg_11" xml:space="preserve" text-anchor="middle" font-family="serif" font-size="24" y="207.75" x="230" stroke-linecap="null" stroke-linejoin="null" stroke-dasharray="null" stroke-width="0" stroke="#000000" fill="#000000">Display</text>
+  <rect stroke="#7c7c7c" id="svg_9" height="133.588255" width="233.529399" y="57.941163" x="16.470586" stroke-linecap="null" stroke-linejoin="null" stroke-dasharray="null" fill="none"/>
+  <rect stroke="#7c7c7c" id="svg_1" height="290.588247" width="235.882341" y="60.58824" x="349.999995" stroke-linecap="null" stroke-linejoin="null" stroke-dasharray="null" fill="none"/>
+  <rect id="svg_8" stroke="#7c7c7c" height="45.294117" width="224.705872" y="128.235296" x="356.176491" stroke-linecap="null" stroke-linejoin="null" stroke-dasharray="null" fill="none"/>
+  <text id="svg_5" stroke="#7c7c7c" xml:space="preserve" text-anchor="middle" font-family="Sans-serif" font-size="24" y="277.750012" x="465.868243" stroke-linecap="null" stroke-linejoin="null" stroke-dasharray="null" stroke-width="0" fill="#000000">Fragment shader</text>
+  <rect id="svg_4" stroke="#7c7c7c" height="45.294117" width="224.705872" y="249.411761" x="355.000008" stroke-linecap="null" stroke-linejoin="null" stroke-dasharray="null" fill="none"/>
+  <text id="svg_6" stroke="#7c7c7c" xml:space="preserve" text-anchor="middle" font-family="Sans-serif" font-size="24" y="89.1218" x="469.116404" stroke-linecap="null" stroke-linejoin="null" stroke-dasharray="null" stroke-width="0" fill="#000000">WebGL program</text>
+  <text style="cursor: move;" id="svg_7" stroke="#7c7c7c" xml:space="preserve" text-anchor="middle" font-family="Sans-serif" font-size="24" y="156.573548" x="467.044726" stroke-linecap="null" stroke-linejoin="null" stroke-dasharray="null" stroke-width="0" fill="#000000">Vertex shader</text>
+  <text xml:space="preserve" text-anchor="middle" font-family="Sans-serif" font-size="24" id="svg_12" y="145.882353" x="187.058818" stroke-linecap="null" stroke-linejoin="null" stroke-dasharray="null" stroke-width="0" stroke="#7c7c7c" fill="#000000">attributes</text>
+  <text id="svg_13" xml:space="preserve" text-anchor="middle" font-family="Sans-serif" font-size="24" y="172.662227" x="189.71001" stroke-linecap="null" stroke-linejoin="null" stroke-dasharray="null" stroke-width="0" stroke="#7c7c7c" fill="#000000">uniforms</text>
+  <text style="cursor: move;" id="svg_10" stroke="#7c7c7c" xml:space="preserve" text-anchor="middle" font-family="Sans-serif" font-size="24" y="86.474724" x="135.586995" stroke-linecap="null" stroke-linejoin="null" stroke-dasharray="null" stroke-width="0" fill="#000000">JavaScript</text>
+  <text id="svg_14" xml:space="preserve" text-anchor="middle" font-family="Sans-serif" font-size="24" y="215.381374" x="469.704952" stroke-linecap="null" stroke-linejoin="null" stroke-dasharray="null" stroke-width="0" stroke="#7c7c7c" fill="#000000">varyings</text>
+  <line stroke="#7c7c7c" id="svg_16" y2="139.411765" x2="355.97934" y1="139.411765" x1="238.823525" stroke-linecap="null" stroke-linejoin="null" stroke-dasharray="null" fill="none"/>
+  <line stroke="#7c7c7c" id="svg_17" y2="163.529412" x2="356.483957" y1="163.529412" x1="237.058822" stroke-linecap="null" stroke-linejoin="null" stroke-dasharray="null" fill="none"/>
+  <line stroke="#7c7c7c" id="svg_18" y2="170.588235" x2="297.135906" y1="170.588235" x1="237.647059" stroke-linecap="null" stroke-linejoin="null" stroke-dasharray="null" fill="none"/>
+  <line stroke="#7c7c7c" id="svg_19" y2="271.764706" x2="297.190455" y1="271.764706" x1="355.294117" stroke-linecap="null" stroke-linejoin="null" stroke-dasharray="null" stroke-width="null" fill="none"/>
+  <line stroke="#7c7c7c" id="svg_20" y2="170.126556" x2="297.153434" y1="272.287129" x1="297.153434" stroke-linecap="null" stroke-linejoin="null" stroke-dasharray="null" stroke-width="null" fill="none"/>
+  <line id="svg_21" y2="200.004807" x2="464" y1="174" x1="464" stroke-linecap="null" stroke-linejoin="null" stroke-dasharray="null" stroke-width="null" stroke="#7c7c7c" fill="none"/>
+  <line id="svg_22" y2="249.438072" x2="464.227199" y1="223.433265" x1="464.227199" stroke-linecap="null" stroke-linejoin="null" stroke-dasharray="null" stroke-width="null" stroke="#7c7c7c" fill="none"/>
  </g>
 </svg>
